@@ -7,7 +7,7 @@ const NavBar = () => {
   return (
     <div className={styles.navBar}>
         <div className={styles.navBarItems}>
-            <h3 className={styles.navBarItem}>Redux</h3>
+            <h3 className={styles.navBarItem}>GraphWay</h3>
         </div>
 
 

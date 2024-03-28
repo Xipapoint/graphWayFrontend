@@ -26,6 +26,17 @@ export const edgeSlice = createSlice({
     initialState,
     reducers: {
         addEdge(state, action: PayloadAction<IEdge>){
+            const edgeExists = state.edges.some(edge => 
+                (edge.startVertex === action.payload.startVertex && edge.endVertex === action.payload.endVertex) ||
+                (edge.startVertex === action.payload.endVertex && edge.endVertex === action.payload.startVertex)
+            );
+
+            if (edgeExists) {
+                return {
+                    ...state,
+                    error: "Edge already exists between these vertices."
+                };
+            }
             const newEdge: IEdge = {
                 id: state.lastEdgeId,
                 top: action.payload.top,

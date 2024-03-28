@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-import styles from './GraphPage.module.scss'
-import GraphInput from '../../../components/GraphInput/components/GraphInput'
-import GraphBLock from '../../../components/GraphBlock/components/GraphBLock'
+import styles from '../GraphPage.module.scss'
+import GraphBLock from '../../../components/Graph/GraphBlock/components/GraphBLock'
+import GraphInput from '../../../components/Graph/GraphInput/components/GraphInput'
 
 
 interface GraphTemplateProps{
@@ -11,6 +11,14 @@ interface GraphTemplateProps{
 
 const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
   const [editMode, setEditMode] = useState<boolean>(false);
+    // const [vertices, setVertices] = useState<IVertex[]>([])
+    // const [edges, setEdges] = useState<IEdge[]>([])
+    // const [graphVertices, setGraphVertices] = useState<number[]>([]);
+    // const [pair, setPair] = useState<number[][]>([]);
+    // const [connections, setConnections] = useState<{ [key: number]: [number, number][] }>({});
+    // const [shortestEdges, setShortestEdges] = useState<number[]>([]);
+    // const [shortestVertices, setShortestVertices] = useState<number[]>([]);
+    
 
   const handleEditModeChange = (newValue: boolean) => {
     setEditMode(newValue);

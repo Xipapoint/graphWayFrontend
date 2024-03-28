@@ -21,7 +21,7 @@ const Header = () => {
   }, []);
   return (
     <section className={styles.header}>
-        <h1 className={styles.headerInfo} style={{animationDelay: '1s'}} ref={h1Ref}>
+        <h1 className={styles.headerInfo} style={{animationDelay: '0.8s'}} ref={h1Ref}>
           <span className={styles.title}>GraphWay</span>
           is a 
           <div className={styles.scrollContainer} style={{overflow: 'hidden', height: '66px'}} >

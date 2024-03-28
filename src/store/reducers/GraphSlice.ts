@@ -37,6 +37,16 @@ interface GraphState {
 
         const newConnections = { ...state.connections };
         const connectionsForVertex1 = newConnections[vertex1] || [];
+
+        const connectionExists = connectionsForVertex1.some(([connectedVertex]) => connectedVertex === vertex2);
+    
+        if (connectionExists) {
+            return {
+                ...state,
+                error: "Connection already exists between these vertices."
+            }
+        }
+
         newConnections[vertex1] = [...connectionsForVertex1, [vertex2, weight]];
         const connectionsForVertex2 = newConnections[vertex2] || [];
         newConnections[vertex2] = [...connectionsForVertex2, [vertex1, weight]];
