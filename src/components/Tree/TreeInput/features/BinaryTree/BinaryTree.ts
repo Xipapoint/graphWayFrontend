@@ -36,6 +36,8 @@ export class BinaryTree {
     insert(data: number, xPos: number, yPos: number): void {
         const newNode = new TreeNode(data);
         if (this.root === null) {
+            console.log("root is null");
+            
             this.root = newNode;
             this.root.xPos = xPos
             this.root.yPos = yPos
@@ -48,17 +50,20 @@ export class BinaryTree {
     private insertNode(node: TreeNode, newNode: TreeNode): void {
         if (newNode.data < node.data) {
             if (node.left === null) {
-                newNode.setXPos(node.xPos - 70)
-                newNode.setXPos(node.yPos + 50)
+                newNode.xPos = node.xPos - 70
+                newNode.yPos = node.yPos + 50
                 node.left = newNode;
+                this.lastAddedNode = newNode
             } else {
                 this.insertNode(node.left, newNode);
             }
         } else {
             if (node.right === null) {
-                newNode.setXPos(node.xPos + 70)
-                newNode.setXPos(node.yPos + 50)
+                console.log("node is bigger");
+                newNode.xPos = node.xPos + 70
+                newNode.yPos = node.yPos + 50
                 node.right = newNode;
+                this.lastAddedNode = newNode
             } else {
                 this.insertNode(node.right, newNode);
             }
@@ -138,7 +143,7 @@ export class BinaryTree {
         }
     }
 
-    findMinNode(node: TreeNode): TreeNode {
+    private findMinNode(node: TreeNode): TreeNode {
         if (node.left === null) {
             return node;
         } else {
