@@ -1,5 +1,5 @@
 
-import TreeAddVertexButton from '../features/TreeAddVertex/TreeAddVertexButton'
+import TreeAddVertexForm from '../features/TreeAddVertex/TreeAddVertexForm'
 import styles from './treeInput.module.scss'
 
 interface TreeInputProps{
@@ -10,7 +10,7 @@ interface TreeInputProps{
 const TreeInput:React.FC<TreeInputProps> = ({nameAlghorithm, onEditModeChange}) => {
     return(
         <div className={styles.tree_input_block}>
-            <TreeAddVertexButton/>
+            <TreeAddVertexForm/>
         </div>
     )
 }

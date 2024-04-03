@@ -7,7 +7,7 @@ import { graphSlice } from '../../../../store/reducers/GraphSlice';
 import { useState } from 'react';
 import UiVertex from '../../GraphUi/Vertex/GraphUiVertex';
 import UiEdge from '../../GraphUi/Edge/UiEdge';
-import { IVertex } from '../../../../entities/Graph/models/interfaces/IVertex.interface';
+import { IVertex } from '../../../../entities/Graph/interfaces/IVertex.interface';
 
 
 interface GraphBlockProps {

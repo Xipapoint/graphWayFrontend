@@ -1,5 +1,5 @@
-import { IEdge } from "../Graph/models/interfaces/IEdge.interface";
-import { IVertex } from "../Graph/models/interfaces/IVertex.interface";
+import { IEdge } from "../Graph/interfaces/IEdge.interface";
+import { IVertex } from "../Graph/interfaces/IVertex.interface";
 
 export interface ISession{
     id: number,

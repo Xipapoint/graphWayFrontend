@@ -1,5 +1,6 @@
 class TreeNode {
     data: number;
+    parent: TreeNode | null;
     left: TreeNode | null;
     right: TreeNode | null;
     xPos: number;
@@ -8,6 +9,7 @@ class TreeNode {
 
     constructor(data: number) {
         this.data = data;
+        this.parent = null
         this.left = null;
         this.right = null;
         this.parentNode = null;
@@ -33,39 +35,63 @@ export class BinaryTree {
         this.lastAddedNode = null
     }
 
-    insert(data: number, xPos: number, yPos: number): void {
+    insert(data: number, xPos: number, yPos: number, borderX: number): void {
         const newNode = new TreeNode(data);
         if (this.root === null) {
             console.log("root is null");
-            
             this.root = newNode;
             this.root.xPos = xPos
             this.root.yPos = yPos
             this.lastAddedNode = newNode
         } else {
-            this.insertNode(this.root, newNode);
+            this.insertNode(this.root, newNode, borderX);
         }
     }
 
-    private insertNode(node: TreeNode, newNode: TreeNode): void {
+    private insertNode(node: TreeNode, newNode: TreeNode, borderX: number): void {
+        console.log("borderx:", borderX);
+        
         if (newNode.data < node.data) {
             if (node.left === null) {
-                newNode.xPos = node.xPos - 70
-                newNode.yPos = node.yPos + 50
+                let x = node.xPos - 70
+                let y = node.yPos + 50
+                if(node.xPos > borderX){
+                    if(x - 15 <= borderX){
+                        x +=70
+                        if(this.root){
+                            this.updateSubtreeCoords(this.root, true)
+                        }
+                    }
+                }
+                newNode.xPos = x
+                newNode.yPos = y
+                newNode.parent = node
                 node.left = newNode;
                 this.lastAddedNode = newNode
             } else {
-                this.insertNode(node.left, newNode);
+                this.insertNode(node.left, newNode, borderX);
             }
         } else {
             if (node.right === null) {
+                let x = node.xPos + 70
+                let y = node.yPos + 50
                 console.log("node is bigger");
-                newNode.xPos = node.xPos + 70
-                newNode.yPos = node.yPos + 50
+                if(node.xPos < borderX){
+                    if(x + 15 >= borderX){
+                        console.log("Вышло за грань");
+                        x -=70
+                        if(this.root){
+                            this.updateSubtreeCoords(this.root, false)
+                        }
+                    }
+                }
+                newNode.xPos = x
+                newNode.yPos = y
+                newNode.parent = node
                 node.right = newNode;
                 this.lastAddedNode = newNode
             } else {
-                this.insertNode(node.right, newNode);
+                this.insertNode(node.right, newNode, borderX);
             }
         }
     }
@@ -153,5 +179,23 @@ export class BinaryTree {
 
     getRootNode(): TreeNode | null {
         return this.root;
+    }
+
+    searchParent(node: TreeNode): number | null{
+        if(node.parent){
+            return node.parent.data
+        }
+        return null
+    }
+
+    private updateSubtreeCoords(node: TreeNode, isLeft: boolean): void{
+        if(node === this.root){
+            if(node.left) this.updateSubtreeCoords(node.left, isLeft)
+            return
+        }
+        if(isLeft) node.xPos += 70;
+        else node.xPos -=70
+        if(node.left) this.updateSubtreeCoords(node.left, isLeft)
+        if(node.right) this.updateSubtreeCoords(node.right, isLeft)
     }
 }

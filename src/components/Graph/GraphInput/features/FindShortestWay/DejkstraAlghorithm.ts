@@ -7,6 +7,10 @@ import edgeStyles from '../../../GraphUi/Edge/edge.module.scss'
 let pairCopy: number[][] = [];
 let shortestWay: number[] = []
 
+
+
+// O(V+E(LOGV)). Loops that do not belong to the algorithm are excluded
+
 export function dejkstra(
     start: number, 
     end: number, 
