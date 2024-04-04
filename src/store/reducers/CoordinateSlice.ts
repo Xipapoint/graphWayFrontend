@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IVertexCoordinates } from "../../entities/Graph/interfaces/IVertexCoordinates.interface";
+import { IVertexCoordinates } from "../../entities/Graph/IVertexCoordinates.interface";
 
 
 interface coordinateState{

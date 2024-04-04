@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IEdge } from "../../entities/Graph/interfaces/IEdge.interface";
-import { IEdgeDetails } from "../../entities/Graph/interfaces/IEdgeDetails.interface";
+import { IEdge } from "../../entities/Graph/IEdge.interface";
+import { IEdgeDetails } from "../../entities/Graph/IEdgeDetails.interface";
 
 interface edgeState{
     edges: IEdge[],

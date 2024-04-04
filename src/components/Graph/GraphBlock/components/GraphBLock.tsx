@@ -7,7 +7,7 @@ import { graphSlice } from '../../../../store/reducers/GraphSlice';
 import { useState } from 'react';
 import UiVertex from '../../GraphUi/Vertex/GraphUiVertex';
 import UiEdge from '../../GraphUi/Edge/UiEdge';
-import { IVertex } from '../../../../entities/Graph/interfaces/IVertex.interface';
+import { IVertex } from '../../../../entities/Graph/IVertex.interface';
 
 
 interface GraphBlockProps {
@@ -23,6 +23,8 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode}) => {
   const {updateEdgePosition, deleteEdgesByVertex} = edgeSlice.actions
   const {updateConnectionWeight, deleteConnectionsByVertex, deleteGraphVertex} = graphSlice.actions
   const dispatch = useAppDispatch();
+
+
 
 
   const handleVertexPositionUpdate = (id: number, xPos: number, yPos: number) => {

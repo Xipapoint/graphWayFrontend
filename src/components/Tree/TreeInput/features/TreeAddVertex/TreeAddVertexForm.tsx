@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IVertex } from "../../../../../entities/Graph/interfaces/IVertex.interface";
+import { IVertex } from "../../../../../entities/Graph/IVertex.interface";
 import { TREEBLOCKSIZES } from "../../../../../shared/constants/graphConstants";
 import { treeGenerateCoord } from '../../../../../shared/helpers/RandomCoord';
 import { useAppDispatch, useAppSelector } from "../../../../../shared/hooks/redux";

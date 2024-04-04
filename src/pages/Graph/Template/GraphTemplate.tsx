@@ -17,7 +17,7 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
     // const [pair, setPair] = useState<number[][]>([]);
     // const [connections, setConnections] = useState<{ [key: number]: [number, number][] }>({});
     // const [shortestEdges, setShortestEdges] = useState<number[]>([]);
-    // const [shortestVertices, setShortestVertices] = useState<number[]>([]);
+    // const [shortestVertices, setShortestVertices] = useState<number[][]>([]);
     
 
   const handleEditModeChange = (newValue: boolean) => {

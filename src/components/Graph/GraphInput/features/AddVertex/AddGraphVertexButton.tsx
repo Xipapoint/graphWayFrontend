@@ -4,7 +4,7 @@ import { vertexSlice } from '../../../../../store/reducers/VertexSlice';
 import { graphSlice } from '../../../../../store/reducers/GraphSlice';
 import { GRAPHSIZES } from '../../../../../shared/constants/graphConstants';
 import { generateCoord } from '../../../../../shared/helpers/RandomCoord';
-import { IVertex } from '../../../../../entities/Graph/interfaces/IVertex.interface';
+import { IVertex } from '../../../../../entities/Graph/IVertex.interface';
 import UiAddVertexButton from '../../../GraphUi/Button/GraphInputButtons/UiAddVertexButton';
 
 
