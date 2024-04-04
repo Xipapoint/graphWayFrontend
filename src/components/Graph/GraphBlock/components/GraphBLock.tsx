@@ -8,14 +8,16 @@ import { useState } from 'react';
 import UiVertex from '../../GraphUi/Vertex/GraphUiVertex';
 import UiEdge from '../../GraphUi/Edge/UiEdge';
 import { IVertex } from '../../../../entities/Graph/IVertex.interface';
+import { GraphDTO } from '../../../../entities/Graph/DTO/GraphDTO.dto';
 
 
 interface GraphBlockProps {
   editMode: boolean;
+  graphDto: GraphDTO
 }
 
 
-const GraphBLock: React.FC<GraphBlockProps> = ({editMode}) => {
+const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto}) => {
   const {vertices} = useAppSelector(state => state.vertexReducer)
   const {shortestVertices, pair} = useAppSelector(state => state.graphReducer)
   const {edges} = useAppSelector(state => state.edgeReducer)
@@ -25,6 +27,7 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode}) => {
   const dispatch = useAppDispatch();
 
 
+  
 
 
   const handleVertexPositionUpdate = (id: number, xPos: number, yPos: number) => {

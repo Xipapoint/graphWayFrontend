@@ -3,15 +3,17 @@ import styles from './GraphInput.module.scss'
 import AddGraphVertexButton from '../features/AddVertex/AddGraphVertexButton';
 import AddEdgeForm from '../features/AddEdge/Components/AddEdgeForm';
 import FindShortestWayForm from '../features/FindShortestWay/FindShortestWayForm';
+import { GraphDTO } from '../../../../entities/Graph/DTO/GraphDTO.dto';
 
 
 interface GraphInputProps{
   nameAlghorithm:string,
   onEditModeChange: (editMode: boolean) => void,
+  graphDto: GraphDTO
 }
 
 
-const GraphInput:React.FC<GraphInputProps> = ({nameAlghorithm, onEditModeChange}) => {
+const GraphInput:React.FC<GraphInputProps> = ({nameAlghorithm, onEditModeChange, graphDto}) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [debugMode, setDebugMode] = useState<boolean>(false);
 
