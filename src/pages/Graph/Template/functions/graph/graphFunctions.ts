@@ -39,30 +39,30 @@ export function updateConnectionWeight(localstate: { [key: number]: [number, num
     return newConnections
 }
 
-export function deleteGraphVertex(graphVertices: number[], shortestVertices: number[][], pair: number[][], index: number): 
-    {
-    graphVertices: number[],
-    shortestVertices: number[][],
-    pair: number[][]
-    }{
-    const indexToRemove = graphVertices.findIndex(vertex => vertex === index);
+// export function deleteGraphVertex(graphVertices: number[], shortestVertices: number[][], pair: number[][], index: number): 
+//     {
+//     graphVertices: number[],
+//     shortestVertices: number[][],
+//     pair: number[][]
+//     }{
+//     const indexToRemove = graphVertices.findIndex(vertex => vertex === index);
 
-    if (indexToRemove !== -1) {
-      const updatedPair = pair.filter(pair => pair[indexToRemove] !== indexToRemove);
-      if(shortestVertices.length > 0){
-        return {
-            graphVertices: [...graphVertices.slice(indexToRemove, 1)],
-            shortestVertices: [...shortestVertices.slice(indexToRemove, 1)],
-            pair: updatedPair
-          };
-      }
+//     if (indexToRemove !== -1) {
+//       const updatedPair = pair.filter(pair => pair[indexToRemove] !== indexToRemove);
+//       if(shortestVertices.length > 0){
+//         return {
+//             graphVertices: [...graphVertices.slice(indexToRemove, 1)],
+//             shortestVertices: [...shortestVertices.slice(indexToRemove, 1)],
+//             pair: updatedPair
+//           };
+//       }
 
-    }
+//     }
   
-    return {graphVertices, shortestVertices, pair};
-}
+//     return {graphVertices, shortestVertices, pair};
+// }
 
-export function deleteConnectionsByVertex(localstate: {[key: number]: [number, number][]}, index: number){
+export function deleteConnectionsByVertex(localstate: {[key: number]: [number, number][]}, index: number): { [key: number]: [number, number][] }{
     const vertexId = index
     const newConnections = {...localstate};
     Object.keys(newConnections).forEach(vertex => {

@@ -10,6 +10,7 @@ import { IVertexCoordinates } from '../../../entities/Graph/IVertexCoordinates.i
 import { addVertex, deleteVertex, moveByPixel, updateIsShortest, updatePair, updateVertexPosition } from './functions/vertex/vertexFunctions';
 import { addEdge, deleteEdge, deleteEdgesByVertex, updateEdgePosition } from './functions/edge/edgeFunctions';
 import { IEdgeDetails } from '../../../entities/Graph/IEdgeDetails.interface';
+import { addConnection, deleteConnectionsByVertex, updateConnectionWeight } from './functions/graph/graphFunctions';
 
 
 interface GraphTemplateProps{
@@ -20,18 +21,12 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [vertices, setVertices] = useState<IVertex[]>([])
   const [edges, setEdges] = useState<IEdge[]>([])
-  const [graphVertices, setGraphVertices] = useState<number[]>([]);
- // const [pair, setPair] = useState<number[][]>([]);
   const [connections, setConnections] = useState<{ [key: number]: [number, number][] }>({});
-  const [shortestVertices, setShortestVertices] = useState<number[][]>([]);
 
   let graphDto: GraphDTO = {
     DTOvertices: vertices,
     DTOedges: edges,
-    DTOgraphVertices: graphVertices,
-   // DTOpair: pair,
     DTOconnections: connections,
-    DTOshortestVertices: shortestVertices
   }
     
   const handleEditModeChange = (newValue: boolean) => {
@@ -59,7 +54,6 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
       const newVertices = updatePair(vertices, copyPair)
       setVertices(newVertices)
     },
-
     handleUpdateIsShortest: (vertices: IVertex[], shortestWay: number[][], index: number) => {
       const newVertices = updateIsShortest(vertices, shortestWay, index)
       setVertices(newVertices);
@@ -71,6 +65,8 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
       const result = addEdge(edges, pushedEdge)
       if(typeof result !== 'number'){
         setEdges([...edges, result])
+      } else{
+        alert("Couldn`t add connection")
       }
     },
     handleDeleteEdge: (edges: IEdge[], index: number) => {
@@ -85,6 +81,24 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
       const newEdges = deleteEdgesByVertex(edges, index)
       setEdges(newEdges)
     },
+
+    // Connection functions
+    handleAddConnection: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => {
+      const result = addConnection(connections, pushedConnection)
+      if(typeof result !== 'number'){
+        setConnections(result)
+      } else{
+        alert("Couldn`t add connection")
+      }
+    },
+    handleUpdateConnectionWeight: (connections: { [key: number]: [number, number][] }, connection: [number, number, number]) => {
+      const newConnections = updateConnectionWeight(connections, connection)
+      setConnections(newConnections)
+    },
+    handleDeleteConnectionsByVertex: (connections: { [key: number]: [number, number][] }, index: number) => {
+      const newConnections = deleteConnectionsByVertex(connections, index)
+      setConnections(newConnections)
+    }
   }
 
   return (
