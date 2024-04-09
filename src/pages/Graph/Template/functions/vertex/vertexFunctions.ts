@@ -40,7 +40,7 @@ export function updateVertexPosition(localstate: IVertex[], coordinates: IVertex
     return localstate.map(vertex =>vertex.id === id ? { ...vertex, xPos, yPos } : vertex)
 }
 
-export function moveByPixel(vertices: IVertex[], index: number) {
+export function moveByPixel(vertices: IVertex[], index: number): IVertex[] {
     if (index >= 0 && index < vertices.length) {
         const updatedVertices = [...vertices];
         updatedVertices[index] = {
@@ -50,4 +50,20 @@ export function moveByPixel(vertices: IVertex[], index: number) {
         return updatedVertices;
     }
     return vertices;
+}
+
+export function updatePair(localstate: IVertex[], copyPair: number[][]){
+    for(let i = 0; i < copyPair.length; i++){
+        localstate[i].pair = copyPair[i];
+    }
+
+    return localstate;
+}
+
+export function updateIsShortest(localstate: IVertex[], shortestWay: number[][], index: number){
+    for(let i = 0; i < localstate.length; i++){
+        for(let j = 0; j < shortestWay.length; j++){
+          if(shortestWay[index][j] === localstate[i].id) localstate[i].isShortest = true
+        }
+    }
 }

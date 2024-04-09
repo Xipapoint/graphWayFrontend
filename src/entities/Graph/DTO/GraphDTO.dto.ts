@@ -4,7 +4,7 @@ export interface GraphDTO{
     DTOvertices: IVertex[]
     DTOedges: IEdge[]
     DTOgraphVertices: number[];
-    DTOpair: number[][];
+ //   DTOpair: number[][];
     DTOconnections: { [key: number]: [number, number][] };
     DTOshortestVertices: number[][]
 }

@@ -6,28 +6,39 @@ import { graphSlice } from '../../../../../store/reducers/GraphSlice';
 import { vertexSlice } from '../../../../../store/reducers/VertexSlice';
 import InputWeightVertex from '../../../GraphUi/Input/GraphInputs/InputWeightVertex';
 import FindShortestWayButton from '../../../GraphUi/Button/GraphInputButtons/FindShortestWayButton';
+import { IVertex } from '../../../../../entities/Graph/IVertex.interface';
+import { IEdge } from '../../../../../entities/Graph/IEdge.interface';
 const name = "Find shortest way";
 
 interface FindShortestWayFormProps{
+  vertices: IVertex[],
+  connections: { [key: number]: [number, number][] },
   nameAlghorithm: string,
-  debugMode: boolean
+  debugMode: boolean,
+  verticesFSWForm: {
+    moveByPixelFSW: (vertices: IVertex[], index: number) => void,
+    updatePairFSW: (verices: IVertex[], copyPair: number[][]) => void
+  },
+
+
 }
 
 
-const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm, debugMode}) => {
+const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({vertices, connections, nameAlghorithm, debugMode, verticesFSWForm}) => {
   const [inputFirstIndex, setInputFirstIndex] = useState('')
   const [inputSecondIndex, setInputSecondIndex] = useState('')
-  let {graphVertices, connections} = useAppSelector(state => state.graphReducer)
-  const {vertices} = useAppSelector(state => state.vertexReducer)
-  const {updatePair, addToShortestVertices} = graphSlice.actions
-  const {moveByPixel} = vertexSlice.actions
+ // let {graphVertices, connections} = useAppSelector(state => state.graphReducer)
+ //const {vertices} = useAppSelector(state => state.vertexReducer)
+ // const {updatePair, addToShortestVertices} = graphSlice.actions
+ // const {moveByPixel} = vertexSlice.actions
   const dispatch = useAppDispatch()
+
+  let graphVertices: number[] = [];
 
 
   const handleFirstInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputFirstIndex(event.target.value);
     console.log(inputFirstIndex);
-    
   };
 
   const handleSecondInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,10 +46,11 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm,
     console.log(inputSecondIndex);
   };
 
+
   const handleSumbit = () => {
 
     for(let i = 0; i < vertices.length; i++){
-      dispatch(moveByPixel(i))
+      verticesFSWForm.moveByPixelFSW(vertices, i)
     }
 
     switch(nameAlghorithm){
@@ -56,8 +68,10 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm,
     const copyPair = getCopyPair();
     const shortestWay = getShortestWay();
 
-    dispatch(updatePair(copyPair));
-    dispatch(addToShortestVertices(shortestWay));
+    verticesFSWForm.updatePairFSW(vertices, copyPair);
+
+
+    // dispatch(addToShortestVertices(shortestWay));
     
   }
 

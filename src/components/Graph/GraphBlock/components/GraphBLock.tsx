@@ -9,15 +9,31 @@ import UiVertex from '../../GraphUi/Vertex/GraphUiVertex';
 import UiEdge from '../../GraphUi/Edge/UiEdge';
 import { IVertex } from '../../../../entities/Graph/IVertex.interface';
 import { GraphDTO } from '../../../../entities/Graph/DTO/GraphDTO.dto';
+import { IVertexCoordinates } from '../../../../entities/Graph/IVertexCoordinates.interface';
+import { IEdgeDetails } from '../../../../entities/Graph/IEdgeDetails.interface';
+import { IEdge } from '../../../../entities/Graph/IEdge.interface';
 
 
 interface GraphBlockProps {
   editMode: boolean;
-  graphDto: GraphDTO
+  graphDto: GraphDTO,
+  verticesFunctions: {
+    handleAddVertex: (vertex: IVertex) => void,
+    handleDeleteVertex: (vertices: IVertex[], index: number) => void
+    handleUpdateVertexPosition: (vertices: IVertex[], vertexCoordinate: IVertexCoordinates) => void
+    handleMoveByPixel: (vertices: IVertex[], index: number) => void
+    handleUpdatePair: (vertices: IVertex[], copyPair: number[][]) => void
+  }
+  edgesFunctions: {
+    handleAddEdge: (edges: IEdge[], pushedEdge: IEdge) => void
+    handleDeleteEdge: (edges: IEdge[], index: number) => void
+    handleUpdateEdgePosition: (edges: IEdge[], edgeDetails: IEdgeDetails) => void
+    handleDeleteEdgesByVertex: (edges: IEdge[], index: number) => void
+  }
 }
 
 
-const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto}) => {
+const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunctions, edgesFunctions}) => {
   const {vertices} = useAppSelector(state => state.vertexReducer)
   const {shortestVertices, pair} = useAppSelector(state => state.graphReducer)
   const {edges} = useAppSelector(state => state.edgeReducer)
@@ -31,7 +47,8 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto}) => {
 
 
   const handleVertexPositionUpdate = (id: number, xPos: number, yPos: number) => {
-    dispatch(updateVertexPosition({id, xPos, yPos})); // Вызываем экшен для обновления позиции вершины в Redux-хранилище
+   // dispatch(updateVertexPosition({id, xPos, yPos})); // Вызываем экшен для обновления позиции вершины в Redux-хранилище
+   verticesFunctions.handleUpdateVertexPosition(graphDto.DTOvertices, {id, xPos, yPos});
   };
 
   const handleEdgePositionUpdate = (id: number, weight: number, left: number, top: number, angle: number) => {
@@ -66,7 +83,7 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto}) => {
     
     <div className={styles.graph_block} id='graph'>
 
-        {vertices.map(vertex => (
+        {graphDto.DTOvertices.map(vertex => (
           <UiVertex
             shortestVertices={shortestVertices}
             draggable={true}
@@ -74,7 +91,7 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto}) => {
             id={vertex.id} 
             xPos={vertex.xPos} 
             yPos = {vertex.yPos}
-            pair={pair}
+            pair={vertex.pair}
             updateVertexPosition={handleVertexPositionUpdate}
             handleDeleteVertex = {handleDeleteVertex}
             editMode = {editMode}

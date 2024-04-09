@@ -8,7 +8,7 @@ interface GraphUiVertexProps {
   id: number,
   xPos: number;
   yPos: number;
-  pair: number[][],
+  pair: number[],
   draggable: boolean
   updateVertexPosition: (id: number, xPos: number, yPos: number) => void;
   shortestVertices: number[],
@@ -20,7 +20,7 @@ const UiVertex: React.FC<GraphUiVertexProps> = ({shortestVertices, id, xPos, yPo
 
   let visualWeight = Infinity;
 
-  if(pair[id][0] !== Number.MAX_VALUE) visualWeight = pair[id][0];
+  if(pair[0] !== Number.MAX_VALUE) visualWeight = pair[0];
 
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -80,7 +80,7 @@ const UiVertex: React.FC<GraphUiVertexProps> = ({shortestVertices, id, xPos, yPo
      >
         {id}
         <div className={styles.pair}>
-            ({visualWeight}, {pair[id][1]})
+            ({visualWeight}, {pair[1]})
         </div>
     </div>
   )
