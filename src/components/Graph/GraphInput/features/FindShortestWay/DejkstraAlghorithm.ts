@@ -5,7 +5,7 @@ import vertexStyles from '../../../GraphUi/Vertex/vertex.module.scss'
 import edgeStyles from '../../../GraphUi/Edge/edge.module.scss'
 
 let pairCopy: number[][] = [];
-let shortestWay: number[] = []
+let shortestWay: number[][] = []
 
 
 
@@ -68,11 +68,11 @@ export function dejkstra(
             console.log("creating shortest way");
             while (currentVertex !== start) {
                 console.log("current vertex: ", currentVertex);
-                shortestWay.push(currentVertex);
+                shortestWay[0].push(currentVertex);
                 console.log(`vertex in pair for ${currentVertex}: `, pairCopy[currentVertex][1]);
                 currentVertex = pairCopy[currentVertex][1];
             }
-            shortestWay.push(currentVertex);
+            shortestWay[0].push(currentVertex);
             shortestWay.reverse();
             console.log(shortestWay);
             let currentEdge = allEdges[minWeightEdge] as HTMLElement

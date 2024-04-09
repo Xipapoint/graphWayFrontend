@@ -18,6 +18,7 @@ interface FindShortestWayFormProps{
   verticesFSWForm: {
     moveByPixelFSW: (vertices: IVertex[], index: number) => void,
     updatePairFSW: (verices: IVertex[], copyPair: number[][]) => void
+    updateIsShortest: (vertices: IVertex[], shortestWay: number[][], index: number) => void
   },
 
 
@@ -27,11 +28,6 @@ interface FindShortestWayFormProps{
 const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({vertices, connections, nameAlghorithm, debugMode, verticesFSWForm}) => {
   const [inputFirstIndex, setInputFirstIndex] = useState('')
   const [inputSecondIndex, setInputSecondIndex] = useState('')
- // let {graphVertices, connections} = useAppSelector(state => state.graphReducer)
- //const {vertices} = useAppSelector(state => state.vertexReducer)
- // const {updatePair, addToShortestVertices} = graphSlice.actions
- // const {moveByPixel} = vertexSlice.actions
-  const dispatch = useAppDispatch()
 
   let graphVertices: number[] = [];
 
@@ -69,8 +65,7 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({vertices, conne
     const shortestWay = getShortestWay();
 
     verticesFSWForm.updatePairFSW(vertices, copyPair);
-
-
+    verticesFSWForm.updateIsShortest(vertices, shortestWay, 1)    
     // dispatch(addToShortestVertices(shortestWay));
     
   }

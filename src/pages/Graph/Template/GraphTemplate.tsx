@@ -7,7 +7,7 @@ import { GraphDTO } from '../../../entities/Graph/DTO/GraphDTO.dto';
 import { IVertex } from '../../../entities/Graph/IVertex.interface';
 import { IEdge } from '../../../entities/Graph/IEdge.interface';
 import { IVertexCoordinates } from '../../../entities/Graph/IVertexCoordinates.interface';
-import { addVertex, deleteVertex, moveByPixel, updatePair, updateVertexPosition } from './functions/vertex/vertexFunctions';
+import { addVertex, deleteVertex, moveByPixel, updateIsShortest, updatePair, updateVertexPosition } from './functions/vertex/vertexFunctions';
 import { addEdge, deleteEdge, deleteEdgesByVertex, updateEdgePosition } from './functions/edge/edgeFunctions';
 import { IEdgeDetails } from '../../../entities/Graph/IEdgeDetails.interface';
 
@@ -52,12 +52,17 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
       setVertices(newVertices)
     },
     handleMoveByPixel: (vertices: IVertex[], index: number) => {
-      let newVertices = moveByPixel(vertices, index)
+      const newVertices = moveByPixel(vertices, index)
       setVertices(newVertices)
     },
     handleUpdatePair: (vertices: IVertex[], copyPair: number[][]) => {
-      let newVertices = updatePair(vertices, copyPair)
+      const newVertices = updatePair(vertices, copyPair)
       setVertices(newVertices)
+    },
+
+    handleUpdateIsShortest: (vertices: IVertex[], shortestWay: number[][], index: number) => {
+      const newVertices = updateIsShortest(vertices, shortestWay, index)
+      setVertices(newVertices);
     }
   }
 
@@ -79,7 +84,7 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
     handleDeleteEdgesByVertex: (edges: IEdge[], index: number) => {
       const newEdges = deleteEdgesByVertex(edges, index)
       setEdges(newEdges)
-    }
+    },
   }
 
   return (

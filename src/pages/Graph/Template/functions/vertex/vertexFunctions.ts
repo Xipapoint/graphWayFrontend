@@ -52,7 +52,7 @@ export function moveByPixel(vertices: IVertex[], index: number): IVertex[] {
     return vertices;
 }
 
-export function updatePair(localstate: IVertex[], copyPair: number[][]){
+export function updatePair(localstate: IVertex[], copyPair: number[][]): IVertex[]{
     for(let i = 0; i < copyPair.length; i++){
         localstate[i].pair = copyPair[i];
     }
@@ -60,10 +60,12 @@ export function updatePair(localstate: IVertex[], copyPair: number[][]){
     return localstate;
 }
 
-export function updateIsShortest(localstate: IVertex[], shortestWay: number[][], index: number){
+export function updateIsShortest(localstate: IVertex[], shortestWay: number[][], index: number): IVertex[]{
     for(let i = 0; i < localstate.length; i++){
         for(let j = 0; j < shortestWay.length; j++){
           if(shortestWay[index][j] === localstate[i].id) localstate[i].isShortest = true
         }
     }
+
+    return localstate
 }

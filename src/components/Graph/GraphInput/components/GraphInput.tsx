@@ -20,6 +20,7 @@ interface GraphInputProps{
     handleUpdateVertexPosition: (vertices: IVertex[], vertexCoordinate: IVertexCoordinates) => void
     handleMoveByPixel: (vertices: IVertex[], index: number) => void
     handleUpdatePair: (vertices: IVertex[], copyPair: number[][]) => void
+    handleUpdateIsShortest: (vertices: IVertex[], shortestWay: number[][], index: number) => void
   }
   edgesFunctions: {
     handleAddEdge: (edges: IEdge[], pushedEdge: IEdge) => void
@@ -63,6 +64,9 @@ const GraphInput:React.FC<GraphInputProps> = ({nameAlghorithm, onEditModeChange,
 
     updatePairFSW: (verices: IVertex[], copyPair: number[][]) => {
       verticesFunctions.handleUpdatePair(verices, copyPair)
+    },
+    updateIsShortest: (vertices: IVertex[], shortestWay: number[][], index: number) => {
+      verticesFunctions.handleUpdateIsShortest(vertices, shortestWay, index)
     }
 
   }
