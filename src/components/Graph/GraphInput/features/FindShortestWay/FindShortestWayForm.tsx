@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './FindShortestWay.module.scss'
 import { dejkstra, getCopyPair, getShortestWay } from './DejkstraAlghorithm';
-import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks/redux';
-import { graphSlice } from '../../../../../store/reducers/GraphSlice';
-import { vertexSlice } from '../../../../../store/reducers/VertexSlice';
 import InputWeightVertex from '../../../GraphUi/Input/GraphInputs/InputWeightVertex';
 import FindShortestWayButton from '../../../GraphUi/Button/GraphInputButtons/FindShortestWayButton';
 import { IVertex } from '../../../../../entities/Graph/IVertex.interface';
@@ -11,11 +8,12 @@ import { IEdge } from '../../../../../entities/Graph/IEdge.interface';
 const name = "Find shortest way";
 
 interface FindShortestWayFormProps{
-  vertices: IVertex[],
-  connections: { [key: number]: [number, number][] },
   nameAlghorithm: string,
   debugMode: boolean,
-  verticesFSWForm: {
+  FSWForm: {
+    connections: { [key: number]: [number, number][] }
+    vertices: IVertex[],
+    edges: IEdge[],
     moveByPixelFSW: (vertices: IVertex[], index: number) => void,
     updatePairFSW: (verices: IVertex[], copyPair: number[][]) => void
     updateIsShortest: (vertices: IVertex[], shortestWay: number[][], index: number) => void
@@ -25,7 +23,7 @@ interface FindShortestWayFormProps{
 }
 
 
-const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({vertices, connections, nameAlghorithm, debugMode, verticesFSWForm}) => {
+const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm, debugMode, FSWForm}) => {
   const [inputFirstIndex, setInputFirstIndex] = useState('')
   const [inputSecondIndex, setInputSecondIndex] = useState('')
 
@@ -45,13 +43,13 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({vertices, conne
 
   const handleSumbit = () => {
 
-    for(let i = 0; i < vertices.length; i++){
-      verticesFSWForm.moveByPixelFSW(vertices, i)
+    for(let i = 0; i < FSWForm.vertices.length; i++){
+      FSWForm.moveByPixelFSW(FSWForm.vertices, i)
     }
 
     switch(nameAlghorithm){
       case 'dejkstra':
-        dejkstra(parseInt(inputFirstIndex), parseInt(inputSecondIndex), graphVertices, connections, debugMode) 
+        dejkstra(parseInt(inputFirstIndex), parseInt(inputSecondIndex), graphVertices, FSWForm.connections, debugMode) 
         break;
         
       case 'floydWarshall':
@@ -64,8 +62,8 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({vertices, conne
     const copyPair = getCopyPair();
     const shortestWay = getShortestWay();
 
-    verticesFSWForm.updatePairFSW(vertices, copyPair);
-    verticesFSWForm.updateIsShortest(vertices, shortestWay, 1)    
+    FSWForm.updatePairFSW(FSWForm.vertices, copyPair);
+    FSWForm.updateIsShortest(FSWForm.vertices, shortestWay, 1)    
     // dispatch(addToShortestVertices(shortestWay));
     
   }

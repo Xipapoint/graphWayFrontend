@@ -64,7 +64,7 @@ const UiVertex: React.FC<GraphUiVertexProps> = ({shortestVertices, id, xPos, yPo
   };
 
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClick = () => {
     handleDeleteVertex(id); // Передаем id в функцию handleDeleteVertex
   };
 

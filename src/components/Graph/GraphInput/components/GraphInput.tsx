@@ -27,6 +27,9 @@ interface GraphInputProps{
     handleDeleteEdge: (edges: IEdge[], index: number) => void
     handleUpdateEdgePosition: (edges: IEdge[], edgeDetails: IEdgeDetails) => void
     handleDeleteEdgesByVertex: (edges: IEdge[], index: number) => void
+    handleAddConnection: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => void
+    handleUpdateConnectionWeight: (connections: { [key: number]: [number, number][] }, connection: [number, number, number]) => void
+    handleDeleteConnectionsByVertex: (connections: { [key: number]: [number, number][] }, index: number) => void
   }
 }
 
@@ -57,18 +60,31 @@ const GraphInput:React.FC<GraphInputProps> = ({nameAlghorithm, onEditModeChange,
   //   verticesFunctions.handleAddVertex(vertex)
   // }
 
-  const verticesFSWForm = {
+  const FSWForm = {
+    connections: graphDto.DTOconnections,
+    vertices: graphDto.DTOvertices,
+    edges: graphDto.DTOedges,
     moveByPixelFSW: (vertices: IVertex[], index: number) => {
       verticesFunctions.handleMoveByPixel(vertices, index)
     },
-
     updatePairFSW: (verices: IVertex[], copyPair: number[][]) => {
       verticesFunctions.handleUpdatePair(verices, copyPair)
     },
     updateIsShortest: (vertices: IVertex[], shortestWay: number[][], index: number) => {
       verticesFunctions.handleUpdateIsShortest(vertices, shortestWay, index)
     }
+  }
 
+  const AEForm = {
+    vertices: graphDto.DTOvertices,
+    edges: graphDto.DTOedges,
+    connections: graphDto.DTOconnections,
+    addEdgeAEForm: (edges: IEdge[], pushedEdge: IEdge) => {
+      edgesFunctions.handleAddEdge(edges, pushedEdge)
+    },
+    addConnectionAEForm: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => {
+      edgesFunctions.handleAddConnection(connections, pushedConnection)
+    },
   }
 
   return (
@@ -83,8 +99,8 @@ const GraphInput:React.FC<GraphInputProps> = ({nameAlghorithm, onEditModeChange,
           debug mode
         </button>
         <AddGraphVertexButton vertices={graphDto.DTOvertices} handleAddVertex={verticesFunctions.handleAddVertex}/>
-        <AddEdgeForm/>
-        <FindShortestWayForm vertices={graphDto.DTOvertices} connections={graphDto.DTOconnections} verticesFSWForm={verticesFSWForm} nameAlghorithm={nameAlghorithm} debugMode={debugMode}/>
+        <AddEdgeForm name={''} AEForm={AEForm}/>
+        <FindShortestWayForm FSWForm={FSWForm} nameAlghorithm={nameAlghorithm} debugMode={debugMode}/>
     </div>
   )
 }

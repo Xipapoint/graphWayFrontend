@@ -1,8 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react'
 import styles from './AddEdgeForm.module.scss'
-import { useAppDispatch, useAppSelector } from '../../../../../../shared/hooks/redux'
-import { edgeSlice } from '../../../../../../store/reducers/EdgeSlice'
-import { graphSlice } from '../../../../../../store/reducers/GraphSlice'
 import { getVertexCenterCoords } from '../../../../../../shared/helpers/GetVertexCenterCoords'
 import { calculateWeight } from '../../../../../../shared/helpers/CalculateWeight'
 import { IEdge } from '../../../../../../entities/Graph/IEdge.interface'
@@ -10,19 +7,24 @@ import { calculateAngle } from '../../../../../../shared/helpers/CalculateAngle'
 import { GRAPHSIZES } from '../../../../../../shared/constants/graphConstants'
 import InputWeightVertex from '../../../../GraphUi/Input/GraphInputs/InputWeightVertex'
 import SmallTemplateButton from '../../../../GraphUi/Button/GraphInputButtons/SmallTemplateButton'
+import { IVertex } from '../../../../../../entities/Graph/IVertex.interface'
 
 
-const name = "Add edge"
+interface AddEdgeFormProps{
+  AEForm: {
+    edges: IEdge[]
+    vertices: IVertex[]
+    connections: { [key: number]: [number, number][] }
+    addEdgeAEForm: (edges: IEdge[], pushedEdge: IEdge) => void
+    addConnectionAEForm: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => void
+  }
+  name: string,
+}
 
 
-const AddEdgeForm = () => {
-
+const AddEdgeForm:React.FC<AddEdgeFormProps> = ({name, AEForm}) => {
   const [inputFirstIndex, setInputFirstIndex] = useState('')
   const [inputSecondIndex, setInputSecondIndex] = useState('')
-  const {vertices} = useAppSelector(state => state.vertexReducer)
-  const dispatch = useAppDispatch()
-  const {addEdge} = edgeSlice.actions
-  const {addConnection} = graphSlice.actions
 
 
   const handleFirstInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,9 +75,9 @@ const AddEdgeForm = () => {
       isShortest: false
     }
 
-    dispatch(addEdge(newEdge))
-    dispatch(addConnection([parseInt(inputFirstIndex), parseInt(inputSecondIndex), Weight]))
-
+    AEForm.addEdgeAEForm(AEForm.edges, newEdge)
+    AEForm.addConnectionAEForm(AEForm.connections, [parseInt(inputFirstIndex), parseInt(inputSecondIndex), Weight])
+    
     setInputFirstIndex('')
     setInputSecondIndex('')
     
@@ -96,7 +98,7 @@ const AddEdgeForm = () => {
           onChange={handleSecondInputChange}                
         />
       </div>
-      <SmallTemplateButton onClick = {handleSubmit} name={name}/>
+      <SmallTemplateButton onClick = {handleSubmit}/>
     </div>
 
   )
