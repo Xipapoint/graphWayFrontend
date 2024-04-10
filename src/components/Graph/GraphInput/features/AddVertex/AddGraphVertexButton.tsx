@@ -8,23 +8,15 @@ import { IVertex } from '../../../../../entities/Graph/IVertex.interface';
 import UiAddVertexButton from '../../../GraphUi/Button/GraphInputButtons/UiAddVertexButton';
 
 
-const name = "Add vertex";
 
   interface AddGraphVertexButtonProps{
     vertices: IVertex[]
     handleAddVertex: (vertex: IVertex) => void,
   }
 
+  let lastVertexId: number = 0
 
 const AddGraphVertexButton: React.FC<AddGraphVertexButtonProps> = ({vertices, handleAddVertex}) => {
-  //const {vertices, isLoading, error} = useAppSelector(state => state.vertexReducer)
-  const {graphVertices} = useAppSelector(state => state.graphReducer)
-  let lastVertexId = useAppSelector(state => state.vertexReducer.lastVertexId);
-  const dispatch = useAppDispatch()
-  //const { addVertex } = vertexSlice.actions
-  const { addGraphVertex, addPair} = graphSlice.actions
-
-
   const addVertex = () => {
     
     const randXPos = generateCoord(GRAPHSIZES.Width)
@@ -49,17 +41,13 @@ const AddGraphVertexButton: React.FC<AddGraphVertexButtonProps> = ({vertices, ha
       pair: [Number.MAX_VALUE, 0],
       isShortest: false
     };
-   // dispatch(addVertex(newVertex));
     handleAddVertex(newVertex);
-    dispatch(addGraphVertex(lastVertexId))
-    dispatch(addPair([Number.MAX_VALUE, 0]))
-    console.log(graphVertices);
+    lastVertexId++
     
-    // console.log("wow");
   };
 
   return (
-    <UiAddVertexButton onClick ={addVertex} name={name}/>
+    <UiAddVertexButton onClick ={addVertex}/>
   )
 }
 

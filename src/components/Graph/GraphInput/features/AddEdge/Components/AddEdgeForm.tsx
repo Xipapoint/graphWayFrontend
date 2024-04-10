@@ -18,11 +18,10 @@ interface AddEdgeFormProps{
     addEdgeAEForm: (edges: IEdge[], pushedEdge: IEdge) => void
     addConnectionAEForm: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => void
   }
-  name: string,
 }
 
 
-const AddEdgeForm:React.FC<AddEdgeFormProps> = ({name, AEForm}) => {
+const AddEdgeForm:React.FC<AddEdgeFormProps> = ({AEForm}) => {
   const [inputFirstIndex, setInputFirstIndex] = useState('')
   const [inputSecondIndex, setInputSecondIndex] = useState('')
 

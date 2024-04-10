@@ -61,12 +61,12 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm,
     }
     const copyPair = getCopyPair();
     const shortestWay = getShortestWay();
-
     FSWForm.updatePairFSW(FSWForm.vertices, copyPair);
     FSWForm.updateIsShortest(FSWForm.vertices, shortestWay, 1)    
-    // dispatch(addToShortestVertices(shortestWay));
-    
   }
+
+  // TODO: CREATE CHANGE SHORTESTWAY LOGIC
+
 
   
 

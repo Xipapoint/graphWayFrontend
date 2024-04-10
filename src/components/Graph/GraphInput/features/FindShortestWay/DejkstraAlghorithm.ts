@@ -85,7 +85,7 @@ export function dejkstra(
         // TODO: СДЕЛАТЬ ДЕБАГ МОД
         let currentEdge = allEdges[minWeightEdge] as HTMLElement
         if (minWeightEdge >= 0 && minWeightEdge < allEdges.length) {
-            let currentEdge = allEdges[minWeightEdge] as HTMLElement;
+            currentEdge = allEdges[minWeightEdge] as HTMLElement;
             currentEdge.style.backgroundColor = 'red';
         } else {
 

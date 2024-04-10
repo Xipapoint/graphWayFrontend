@@ -16,20 +16,13 @@ interface GraphInputProps{
   graphDto: GraphDTO,
   verticesFunctions: {
     handleAddVertex: (vertex: IVertex) => void,
-    handleDeleteVertex: (vertices: IVertex[], index: number) => void
-    handleUpdateVertexPosition: (vertices: IVertex[], vertexCoordinate: IVertexCoordinates) => void
     handleMoveByPixel: (vertices: IVertex[], index: number) => void
     handleUpdatePair: (vertices: IVertex[], copyPair: number[][]) => void
     handleUpdateIsShortest: (vertices: IVertex[], shortestWay: number[][], index: number) => void
   }
   edgesFunctions: {
     handleAddEdge: (edges: IEdge[], pushedEdge: IEdge) => void
-    handleDeleteEdge: (edges: IEdge[], index: number) => void
-    handleUpdateEdgePosition: (edges: IEdge[], edgeDetails: IEdgeDetails) => void
-    handleDeleteEdgesByVertex: (edges: IEdge[], index: number) => void
     handleAddConnection: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => void
-    handleUpdateConnectionWeight: (connections: { [key: number]: [number, number][] }, connection: [number, number, number]) => void
-    handleDeleteConnectionsByVertex: (connections: { [key: number]: [number, number][] }, index: number) => void
   }
 }
 
@@ -99,7 +92,7 @@ const GraphInput:React.FC<GraphInputProps> = ({nameAlghorithm, onEditModeChange,
           debug mode
         </button>
         <AddGraphVertexButton vertices={graphDto.DTOvertices} handleAddVertex={verticesFunctions.handleAddVertex}/>
-        <AddEdgeForm name={''} AEForm={AEForm}/>
+        <AddEdgeForm AEForm={AEForm}/>
         <FindShortestWayForm FSWForm={FSWForm} nameAlghorithm={nameAlghorithm} debugMode={debugMode}/>
     </div>
   )

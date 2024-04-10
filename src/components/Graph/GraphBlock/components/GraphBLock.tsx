@@ -18,33 +18,20 @@ interface GraphBlockProps {
   editMode: boolean;
   graphDto: GraphDTO,
   verticesFunctions: {
-    handleAddVertex: (vertex: IVertex) => void,
     handleDeleteVertex: (vertices: IVertex[], index: number) => void
     handleUpdateVertexPosition: (vertices: IVertex[], vertexCoordinate: IVertexCoordinates) => void
-    handleMoveByPixel: (vertices: IVertex[], index: number) => void
-    handleUpdatePair: (vertices: IVertex[], copyPair: number[][]) => void
   }
   edgesFunctions: {
-    handleAddEdge: (edges: IEdge[], pushedEdge: IEdge) => void
     handleDeleteEdge: (edges: IEdge[], index: number) => void
     handleUpdateEdgePosition: (edges: IEdge[], edgeDetails: IEdgeDetails) => void
     handleDeleteEdgesByVertex: (edges: IEdge[], index: number) => void
+    handleUpdateConnectionWeight: (connections: { [key: number]: [number, number][] }, connection: [number, number, number]) => void
+    handleDeleteConnectionsByVertex: (connections: { [key: number]: [number, number][] }, index: number) => void
   }
 }
 
 
 const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunctions, edgesFunctions}) => {
-  const {vertices} = useAppSelector(state => state.vertexReducer)
-  const {shortestVertices, pair} = useAppSelector(state => state.graphReducer)
-  const {edges} = useAppSelector(state => state.edgeReducer)
-  const {updateVertexPosition, deleteVertex} = vertexSlice.actions
-  const {updateEdgePosition, deleteEdgesByVertex} = edgeSlice.actions
-  const {updateConnectionWeight, deleteConnectionsByVertex, deleteGraphVertex} = graphSlice.actions
-  const dispatch = useAppDispatch();
-
-
-  
-
 
   const handleVertexPositionUpdate = (id: number, xPos: number, yPos: number) => {
    // dispatch(updateVertexPosition({id, xPos, yPos})); // Вызываем экшен для обновления позиции вершины в Redux-хранилище
@@ -52,19 +39,18 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunc
   };
 
   const handleEdgePositionUpdate = (id: number, weight: number, left: number, top: number, angle: number) => {
-    dispatch(updateEdgePosition({id, weight, left, top, angle})); // Вызываем экшен для обновления позиции вершины в Redux-хранилище
+    edgesFunctions.handleUpdateEdgePosition(graphDto.DTOedges, {id, weight, left, top, angle}); // Вызываем экшен для обновления позиции вершины в Redux-хранилище
   };
 
   const handleConnectionWeightUpdate = (weight: number, startVertex: number, endVertex: number) =>{
-    dispatch(updateConnectionWeight([startVertex, endVertex, weight]))
+    edgesFunctions.handleUpdateConnectionWeight(graphDto.DTOconnections, [startVertex, endVertex, weight])
   }
 
 
   const handleDeleteVertex= (id: number) =>{
-    dispatch(deleteConnectionsByVertex(id))
-    dispatch(deleteGraphVertex(id))
-    dispatch(deleteVertex(id))
-    dispatch(deleteEdgesByVertex(id))
+    edgesFunctions.handleDeleteConnectionsByVertex(graphDto.DTOconnections, id)
+    verticesFunctions.handleDeleteVertex(graphDto.DTOvertices, id)
+    edgesFunctions.handleDeleteEdgesByVertex(graphDto.DTOedges, id)
   }
 
   const handleDeleteEdge = (id: number) =>{
@@ -85,7 +71,7 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunc
 
         {graphDto.DTOvertices.map(vertex => (
           <UiVertex
-            shortestVertices={shortestVertices}
+            isShortestVertex={vertex.isShortest}
             draggable={true}
             key={vertex.id}
             id={vertex.id} 
@@ -98,7 +84,7 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunc
           />
         ))}
 
-        {edges.map(edge => (
+        {graphDto.DTOedges.map(edge => (
           <UiEdge 
           key={edge.id} 
           id={edge.id} 
@@ -106,7 +92,7 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunc
           top={edge.top} 
           angle = {edge.angle} 
           weight = {edge.weight} 
-          vertices={vertices} 
+          vertices={graphDto.DTOvertices} 
           startVertex={edge.startVertex}
           endVertex={edge.endVertex}
           updateEdgePosition = {handleEdgePositionUpdate}

@@ -11,12 +11,12 @@ interface GraphUiVertexProps {
   pair: number[],
   draggable: boolean
   updateVertexPosition: (id: number, xPos: number, yPos: number) => void;
-  shortestVertices: number[],
   handleDeleteVertex: (id: number) => void,
   editMode: boolean
+  isShortestVertex: boolean
 }
 
-const UiVertex: React.FC<GraphUiVertexProps> = ({shortestVertices, id, xPos, yPos, draggable, updateVertexPosition, pair, handleDeleteVertex, editMode}) => {
+const UiVertex: React.FC<GraphUiVertexProps> = ({isShortestVertex, id, xPos, yPos, draggable, updateVertexPosition, pair, handleDeleteVertex, editMode}) => {
 
   let visualWeight = Infinity;
 
@@ -24,8 +24,6 @@ const UiVertex: React.FC<GraphUiVertexProps> = ({shortestVertices, id, xPos, yPo
 
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-
-  const isShortestVertex = shortestVertices.includes(id);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
