@@ -20,6 +20,8 @@ interface AddEdgeFormProps{
   }
 }
 
+let edgeId: number = 0;
+
 
 const AddEdgeForm:React.FC<AddEdgeFormProps> = ({AEForm}) => {
   const [inputFirstIndex, setInputFirstIndex] = useState('')
@@ -64,7 +66,7 @@ const AddEdgeForm:React.FC<AddEdgeFormProps> = ({AEForm}) => {
     const Angle = calculateAngle(centerVertex1, centerVertex2);
     const newEdge: IEdge = {
       
-      id: 0,
+      id: edgeId,
       weight: Weight,
       top: centerVertex1.y - GRAPHSIZES.Top,
       left: centerVertex1.x - GRAPHSIZES.Left,
@@ -76,6 +78,7 @@ const AddEdgeForm:React.FC<AddEdgeFormProps> = ({AEForm}) => {
 
     AEForm.addEdgeAEForm(AEForm.edges, newEdge)
     AEForm.addConnectionAEForm(AEForm.connections, [parseInt(inputFirstIndex), parseInt(inputSecondIndex), Weight])
+    edgeId++
     
     setInputFirstIndex('')
     setInputSecondIndex('')
