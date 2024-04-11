@@ -29,7 +29,7 @@ export function addEdge(localstate: IEdge[], pushedEdge: IEdge): IEdge | number{
 export function deleteEdge(localstate: IEdge[], index: number): IEdge[]{
     const indexToRemove = localstate.findIndex(edge => edge.id === index)
     if (indexToRemove !== -1) {
-        return localstate.splice(indexToRemove, 1);
+        return localstate.filter(edge => edge.id !== indexToRemove);
     }
     return localstate
 }

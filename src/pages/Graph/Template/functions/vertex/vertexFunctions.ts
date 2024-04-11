@@ -14,25 +14,15 @@ export function addVertex(vertex: IVertex): IVertex{
     return newVertex;
 }
 
+
 export function deleteVertex(localstate: IVertex[], index: number): IVertex[]{
-    const indexToRemove = localstate.findIndex(vertex => vertex.id === index);
-    if (indexToRemove !== -1) {
-        return localstate.splice(indexToRemove, 1)
+    //const indexToRemove = localstate.findIndex(vertex => vertex.id === index);
+    if (index !== -1) {
+        return localstate.filter(vertex => vertex.id !== index)
             //lastVertexId: localstate.lastVertexId-1
     }
     return localstate
 }
-
-
-// As an alternative approach but makes new copy of array
-
-// export function deleteVertex(localstate: IVertex[], index: number): IVertex[]{
-//     if (index !== -1) {
-//         return localstate.filter(vertex => vertex.id !== index)
-//             //lastVertexId: localstate.lastVertexId-1
-//     }
-//     return localstate
-// }
 
 
 export function updateVertexPosition(localstate: IVertex[], coordinates: IVertexCoordinates): IVertex[] {
