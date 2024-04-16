@@ -114,7 +114,7 @@ export function dejkstra(
             let currentEdge = allEdges[minWeightEdge] as HTMLElement
             currentEdge.style.backgroundColor = 'aqua'
             
-            return -1
+            return 0
         }
         if (!connections[currentVertex]) continue;
 
