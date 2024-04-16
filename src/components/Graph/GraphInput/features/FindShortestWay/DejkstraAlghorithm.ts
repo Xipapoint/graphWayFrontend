@@ -21,10 +21,14 @@ export function dejkstra(
     connections: { [key: number]: [number, number][] },
     edges: IEdge[],
     debugMode: boolean
-    ): void {
+    ): number {
     if (Object.keys(connections).length === 0) {
         alert("No existing edges");
-        return
+        return -1
+    }
+    if(!graphVertices.includes(start) || !graphVertices.includes(end)){
+        alert("Start or end vertex doesnt exist");
+        return -1
     }
     pairCopy = []
     shortestWay = []
@@ -75,7 +79,7 @@ export function dejkstra(
     while (!pq.isEmpty()) {
         k++;
         if (k > 100) {
-            return;
+            return -1;
         }
         // let currentVertex: number
         // let currentWeight: number
@@ -87,7 +91,7 @@ export function dejkstra(
         if (currentVertex === end) {
             k++;
             if (k > 150) {
-                return;
+                return -1;
             }
             shortestWay[0] = []
             console.log("creating shortest way");
@@ -110,7 +114,7 @@ export function dejkstra(
             let currentEdge = allEdges[minWeightEdge] as HTMLElement
             currentEdge.style.backgroundColor = 'aqua'
             
-            return 
+            return -1
         }
         if (!connections[currentVertex]) continue;
 
@@ -176,7 +180,7 @@ export function dejkstra(
 
 
     }
-    return 
+    return -1
 }
 
 

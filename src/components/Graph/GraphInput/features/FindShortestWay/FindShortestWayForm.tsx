@@ -47,10 +47,10 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm,
       FSWForm.moveByPixelFSW(FSWForm.vertices, i)
     }
     
-
+    let result: number = 0;
     switch(nameAlghorithm){
       case 'dejkstra':
-        dejkstra(parseInt(inputFirstIndex), parseInt(inputSecondIndex), graphVertices, FSWForm.connections, FSWForm.edges, debugMode) 
+       result = dejkstra(parseInt(inputFirstIndex), parseInt(inputSecondIndex), graphVertices, FSWForm.connections, FSWForm.edges, debugMode) 
         break;
         
       case 'floydWarshall':
@@ -59,6 +59,10 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm,
 
       default:
         break;
+    }
+
+    if(result === -1){
+      return
     }
     const copyPair = getCopyPair();
     const shortestWay = getShortestWay();
