@@ -70,17 +70,17 @@ const TreeAddVertexForm = () => {
         console.log("last added node: ", binaryTree.lastAddedNode);
         console.log("coords for last added node: ", `(${binaryTree.lastAddedNode.xPos}, ${binaryTree.lastAddedNode.yPos})`);
         
-        const newVertex: IVertex = {
-          id: lastVertexId,
-          xPos: xPos,
-          yPos: yPos,
-          pair: [Number.MAX_VALUE, 0],
-          isShortest: false
-        };
-        dispatch(addVertex(newVertex));
-        dispatch(addGraphVertex(lastVertexId))
-        dispatch(addPair([Number.MAX_VALUE, 0]))
-        console.log(graphVertices);
+        // const newVertex: IVertex = {
+        //   id: lastVertexId,
+        //   xPos: xPos,
+        //   yPos: yPos,
+        //   pair: [Number.MAX_VALUE, 0],
+        //   isShortest: false
+        // };
+        // dispatch(addVertex(newVertex));
+        // dispatch(addGraphVertex(lastVertexId))
+        // dispatch(addPair([Number.MAX_VALUE, 0]))
+        // console.log(graphVertices);
 
         setInputIndex('')
       }

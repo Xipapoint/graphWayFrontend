@@ -14,35 +14,35 @@ import UiAddVertexButton from '../../../GraphUi/Button/GraphInputButtons/UiAddVe
     handleAddVertex: (vertex: IVertex) => void,
   }
 
-  let lastVertexId: number = 0
+  let vertexId: number = 0
 
 const AddGraphVertexButton: React.FC<AddGraphVertexButtonProps> = ({vertices, handleAddVertex}) => {
   const addVertex = () => {
     
     const randXPos = generateCoord(GRAPHSIZES.Width)
     const randYPos = generateCoord(GRAPHSIZES.Height)
-    console.log(lastVertexId);
+    console.log(vertexId);
 
     if(vertices.length === 0){
-      lastVertexId = 0
+      vertexId = 0
     }
 
     for (let i = 0; i < vertices.length; i++) {
-      if (vertices[i].id === lastVertexId) {
-          lastVertexId += 1;
+      if (vertices[i].id === vertexId) {
+          vertexId += 1;
       }
   }
 
-    console.log(lastVertexId);
+    console.log(vertexId);
     const newVertex: IVertex = {
-      id: lastVertexId,
+      id: vertexId,
       xPos: randXPos,
       yPos: randYPos,
-      pair: [Number.MAX_VALUE, 0],
+      pair: [vertexId, Number.MAX_VALUE, 0],
       isShortest: false
     };
     handleAddVertex(newVertex);
-    lastVertexId++
+    vertexId++
     
   };
 

@@ -27,8 +27,6 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm,
   const [inputFirstIndex, setInputFirstIndex] = useState('')
   const [inputSecondIndex, setInputSecondIndex] = useState('')
 
-  let graphVertices: number[] = [];
-
 
   const handleFirstInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputFirstIndex(event.target.value);
@@ -42,14 +40,17 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm,
 
 
   const handleSumbit = () => {
+    let graphVertices: number[] = [];
 
     for(let i = 0; i < FSWForm.vertices.length; i++){
+      graphVertices.push(FSWForm.vertices[i].id)
       FSWForm.moveByPixelFSW(FSWForm.vertices, i)
     }
+    
 
     switch(nameAlghorithm){
       case 'dejkstra':
-        dejkstra(parseInt(inputFirstIndex), parseInt(inputSecondIndex), graphVertices, FSWForm.connections, debugMode) 
+        dejkstra(parseInt(inputFirstIndex), parseInt(inputSecondIndex), graphVertices, FSWForm.connections, FSWForm.edges, debugMode) 
         break;
         
       case 'floydWarshall':
@@ -62,7 +63,7 @@ const FindShortestWayForm:React.FC<FindShortestWayFormProps> = ({nameAlghorithm,
     const copyPair = getCopyPair();
     const shortestWay = getShortestWay();
     FSWForm.updatePairFSW(FSWForm.vertices, copyPair);
-    FSWForm.updateIsShortest(FSWForm.vertices, shortestWay, 1)    
+    FSWForm.updateIsShortest(FSWForm.vertices, shortestWay, 0)    
   }
 
   // TODO: CREATE CHANGE SHORTESTWAY LOGIC

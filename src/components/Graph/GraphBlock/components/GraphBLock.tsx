@@ -1,10 +1,5 @@
 
 import styles from './graphBlock.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/redux';
-import { vertexSlice } from '../../../../store/reducers/VertexSlice';
-import { edgeSlice } from '../../../../store/reducers/EdgeSlice';
-import { graphSlice } from '../../../../store/reducers/GraphSlice';
-import { useState } from 'react';
 import UiVertex from '../../GraphUi/Vertex/GraphUiVertex';
 import UiEdge from '../../GraphUi/Edge/UiEdge';
 import { IVertex } from '../../../../entities/Graph/IVertex.interface';

@@ -18,12 +18,12 @@ interface GraphUiVertexProps {
 
 const UiVertex: React.FC<GraphUiVertexProps> = ({isShortestVertex, id, xPos, yPos, draggable, updateVertexPosition, pair, handleDeleteVertex, editMode}) => {
 
-  let visualWeight = Infinity;
-
-  if(pair[0] !== Number.MAX_VALUE) visualWeight = pair[0];
+  let visualWeight = pair[1];
 
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  if(visualWeight === Number.MAX_VALUE) visualWeight = Infinity
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -50,7 +50,7 @@ const UiVertex: React.FC<GraphUiVertexProps> = ({isShortestVertex, id, xPos, yPo
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [id, isDragging, offset, updateVertexPosition, pair]);
+  }, [id, isDragging, offset, updateVertexPosition, pair, isShortestVertex]);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);
@@ -78,7 +78,7 @@ const UiVertex: React.FC<GraphUiVertexProps> = ({isShortestVertex, id, xPos, yPo
      >
         {id}
         <div className={styles.pair}>
-            ({visualWeight}, {pair[1]})
+            {`(${visualWeight}, ${pair[2]})`}
         </div>
     </div>
   )

@@ -3,10 +3,13 @@ import { getWeightByVertices } from "../../../../../shared/helpers/GetWeightByVe
 import { PriorityQueue } from "./PriorityQueue";
 import vertexStyles from '../../../GraphUi/Vertex/vertex.module.scss'
 import edgeStyles from '../../../GraphUi/Edge/edge.module.scss'
+import { IEdge } from "../../../../../entities/Graph/IEdge.interface";
 
 let pairCopy: number[][] = [];
 let shortestWay: number[][] = []
 
+
+// TODO: PAIR: [ID, W, FROM_ID]
 
 
 // O(V+E(LOGV)). Loops that do not belong to the algorithm are excluded
@@ -16,6 +19,7 @@ export function dejkstra(
     end: number, 
     graphVertices: number[], 
     connections: { [key: number]: [number, number][] },
+    edges: IEdge[],
     debugMode: boolean
     ): void {
     if (Object.keys(connections).length === 0) {
@@ -24,10 +28,28 @@ export function dejkstra(
     }
     pairCopy = []
     shortestWay = []
-    for(let i = 0; i < graphVertices.length; i++){
-        pairCopy.push([Number.MAX_VALUE, 0])
-    }
+    console.log("graph vertices:", graphVertices);
     
+    // for(let i = 0; i < graphVertices.length; i++){
+    //     let index: number = graphVertices[i]
+    //     pairCopy[i] = {}
+    //     if(index === start){
+    //         pairCopy[i][index] = [0, 0]
+    //         distances[index] = 0
+    //     }
+    //     distances[index] = Number.MAX_VALUE
+    //     pairCopy[i][index] = [Number.MAX_VALUE, 0]
+    // }
+
+
+    for(let i = 0; i < graphVertices.length; i++){
+        pairCopy[i] = []
+        if(graphVertices[i] === start) {
+            pairCopy[i] = [graphVertices[i], 0, 0]
+            continue
+        }
+        pairCopy[i] = [graphVertices[i], Number.MAX_VALUE, 0]
+    }
     const pq: PriorityQueue = new PriorityQueue();
 
     const allEdges: HTMLCollectionOf<Element> = document.getElementsByClassName(edgeStyles.edge);
@@ -39,14 +61,16 @@ export function dejkstra(
     for (let i = 0; i < graphVertices.length; i++) {
         visited[i] = false;
     }
-
-    pairCopy[start][0] = 0;
+    console.log(pairCopy);
+    
     console.log("pairs: ", pairCopy);
 
     pq.enqueue(start, 0);
     let minWeightVertex: number = 0;
 
     let k: number = 0;
+
+    let index: number = 0;
 
     while (!pq.isEmpty()) {
         k++;
@@ -65,21 +89,30 @@ export function dejkstra(
             if (k > 150) {
                 return;
             }
+            shortestWay[0] = []
             console.log("creating shortest way");
             while (currentVertex !== start) {
+                index = 0
                 console.log("current vertex: ", currentVertex);
+                console.log(shortestWay);
+                
                 shortestWay[0].push(currentVertex);
-                console.log(`vertex in pair for ${currentVertex}: `, pairCopy[currentVertex][1]);
-                currentVertex = pairCopy[currentVertex][1];
+                while(pairCopy[index][0] !== currentVertex){
+                    index++
+                }
+                console.log(`vertex in pair for ${currentVertex}: `, pairCopy[index][2]);
+                currentVertex = pairCopy[currentVertex][2];
+
             }
             shortestWay[0].push(currentVertex);
-            shortestWay.reverse();
+            shortestWay[0].reverse();
             console.log(shortestWay);
             let currentEdge = allEdges[minWeightEdge] as HTMLElement
             currentEdge.style.backgroundColor = 'aqua'
             
             return
         }
+        if (!connections[currentVertex]) continue;
 
 
         // TODO: СДЕЛАТЬ ДЕБАГ МОД
@@ -91,25 +124,35 @@ export function dejkstra(
 
         }
 
-        if (currentWeight > pairCopy[currentVertex][0]) continue;
+        index = 0
+        while(pairCopy[index][0] !== currentVertex){
+            index++
+        }
 
+        if (currentWeight > pairCopy[index][1]) continue; 
 
-
-        if (!connections[currentVertex]) continue;
         for (let i = 0; i < connections[currentVertex].length; i++) {
+            index = 0;
             const neighbor = connections[currentVertex][i];
             const [neighborVertex, neighborWeight] = neighbor;
             
             const newWeight: number = currentWeight + getWeightByVertices(neighborVertex, currentVertex);
-            if (newWeight < pairCopy[neighborVertex][0]) {
-                pairCopy[neighborVertex][0] = newWeight;
-                pairCopy[neighborVertex][1] = currentVertex;
+
+            while(pairCopy[index][0] !== neighborVertex){
+                console.log("index:", index);
+                
+                index++
+            }
+
+            if (newWeight < pairCopy[index][1]) {
+                pairCopy[index][1] = newWeight;
+                pairCopy[index][2] = currentVertex;
                 console.log(`vertex in graph pair for neighbor vertex ${neighborVertex} : v`, pairCopy[neighborVertex][1]);
                 const vertice: HTMLElement | null = document.getElementById(neighborVertex.toString());
                 if (vertice) {
                     const htmlPair: Element | null = vertice.querySelector(vertexStyles.pair);
                     if (htmlPair) {
-                        htmlPair.textContent = `(${pairCopy[neighborVertex][0]}, v${pairCopy[neighborVertex][1]})`;
+                        htmlPair.textContent = `(${pairCopy[index][1]}, v${pairCopy[index][2]})`;
                     }
                 }
                 pq.enqueue(neighborVertex, newWeight);
