@@ -74,15 +74,15 @@ const UiEdge: React.FC<UiEdgeProps> = ({id, left, top, angle, weight, vertices, 
           weightRef.current = calculatedWeight;
           updateEdgePosition(
             id,
-            calculatedWeight,
-            newTop,
-            newLeft,
-            calculatedAngle
+            weightRef.current,
+            topRef.current,
+            leftRef.current,
+            angleRef.current
           );
           updateConnectionWeight(
-            calculatedWeight,
             startVertex,
             endVertex,
+            weightRef.current
           )
         }
       }

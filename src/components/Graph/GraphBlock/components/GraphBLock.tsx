@@ -37,7 +37,7 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunc
     edgesFunctions.handleUpdateEdgePosition(graphDto.DTOedges, {id, weight, left, top, angle}); // Вызываем экшен для обновления позиции вершины в Redux-хранилище
   };
 
-  const handleConnectionWeightUpdate = (weight: number, startVertex: number, endVertex: number) =>{
+  const handleConnectionWeightUpdate = (startVertex: number, endVertex: number, weight: number) =>{
     edgesFunctions.handleUpdateConnectionWeight(graphDto.DTOconnections, [startVertex, endVertex, weight])
   }
 
