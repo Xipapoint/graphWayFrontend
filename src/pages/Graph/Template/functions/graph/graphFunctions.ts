@@ -1,43 +1,61 @@
-export function addConnection(localstate: { [key: number]: [number, number][] }, connection: [number, number, number]): { [key: number]: [number, number][] } | number {
-    const [vertex1, vertex2, weight] = connection
+export function addConnection(
+  localstate: Map<number, [number, number][]>,
+  connection: [number, number, number]
+): Map<number, [number, number][]> | number {
+  const [vertex1, vertex2, weight] = connection
 
-    const connectionsForVertex1 = localstate[vertex1] || [];
+  const connectionsForVertex1 = localstate.get(vertex1) || [];
 
-    const connectionExists = connectionsForVertex1.some(([connectedVertex]) => connectedVertex === vertex2);
+  const connectionExists = connectionsForVertex1.some(([connectedVertex]) => connectedVertex === vertex2);
 
-    if (connectionExists) {
-        return -1
-    }
+  if (connectionExists) {
+    return -1
+  }
 
-    const newState = { ...localstate };
+  const newState = new Map(localstate);
 
-    newState[vertex1] = [...connectionsForVertex1, [vertex2, weight]];
-    const connectionsForVertex2 = newState[vertex2] || [];
-    newState[vertex2] = [...connectionsForVertex2, [vertex1, weight]];
+  newState.set(vertex1, [...connectionsForVertex1, [vertex2, weight]]);
+  const connectionsForVertex2 = newState.get(vertex2) || [];
+  newState.set(vertex2, [...connectionsForVertex2, [vertex1, weight]]);
 
-    return newState
+  return newState;
 }
 
-export function updateConnectionWeight(localstate: { [key: number]: [number, number][] }, connection: [number, number, number]): { [key: number]: [number, number][] }{
-    const [vertex1, vertex2, weight] = connection;
-  
-    const newConnections = { ...localstate };
+export function updateConnectionWeight(
+  localstate: Map<number, [number, number][]>,
+  connection: [number, number, number]
+): Map<number, [number, number][]> {
+  const [vertex1, vertex2, weight] = connection;
 
-    newConnections[vertex1] = (newConnections[vertex1] || []).map(([v, w]) => {
-      if (v === vertex2) {
-        return [v, weight];
-      }
-      return [v, w];
-    });
-    newConnections[vertex2] = (newConnections[vertex2] || []).map(([v, w]) => {
-      if (v === vertex1) {
-        return [v, weight];
-      }
-      return [v, w];
-    });
+  const newConnections = new Map(localstate);
   
-    return newConnections
+  if (newConnections.has(vertex1)) {
+      newConnections.set(
+          vertex1,
+          newConnections.get(vertex1)!.map(([v, w]) => {
+              if (v === vertex2) {
+                  return [v, weight];
+              }
+              return [v, w];
+          })
+      );
+  }
+
+  if (newConnections.has(vertex2)) {
+      newConnections.set(
+          vertex2,
+          newConnections.get(vertex2)!.map(([v, w]) => {
+              if (v === vertex1) {
+                  return [v, weight];
+              }
+              return [v, w];
+          })
+      );
+  }
+
+  return newConnections;
 }
+
 
 // export function deleteGraphVertex(graphVertices: number[], shortestVertices: number[][], pair: number[][], index: number): 
 //     {
@@ -58,19 +76,21 @@ export function updateConnectionWeight(localstate: { [key: number]: [number, num
 //       }
 
 //     }
-  
+
 //     return {graphVertices, shortestVertices, pair};
 // }
 
-export function deleteConnectionsByVertex(localstate: {[key: number]: [number, number][]}, index: number): { [key: number]: [number, number][] }{
-    const vertexId = index
-    const newConnections = {...localstate};
-    Object.keys(newConnections).forEach(vertex => {
-      const vertexNumber: number = parseInt(vertex);
-      newConnections[vertexNumber] = newConnections[vertexNumber].filter(([v, _]) => v !== vertexId);
-    });
+export function deleteConnectionsByVertex(
+  localstate: Map<number, [number, number][]>, 
+  index: number
+): Map<number, [number, number][]> {
+  const vertexId = index
+  const newConnections = new Map(localstate);
+  newConnections.forEach(connections => {
+    connections.filter((connection) => connection[0] !== vertexId)
+  })
 
-    delete newConnections[vertexId]
+  newConnections.delete(vertexId)
 
-    return newConnections
+  return newConnections
 }

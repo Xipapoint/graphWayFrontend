@@ -11,7 +11,7 @@ interface FindShortestWayFormProps{
   nameAlghorithm: string,
   debugMode: boolean,
   FSWForm: {
-    connections: { [key: number]: [number, number][] }
+    connections: Map<number, [number, number][]>
     vertices: IVertex[],
     edges: IEdge[],
     moveByPixelFSW: (vertices: IVertex[], index: number) => void,

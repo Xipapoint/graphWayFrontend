@@ -14,9 +14,9 @@ interface AddEdgeFormProps{
   AEForm: {
     edges: IEdge[]
     vertices: IVertex[]
-    connections: { [key: number]: [number, number][] }
+    connections: Map<number, [number, number][]>
     addEdgeAEForm: (edges: IEdge[], pushedEdge: IEdge) => void
-    addConnectionAEForm: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => void
+    addConnectionAEForm: (connections: Map<number, [number, number][]>, pushedConnection: [number, number, number]) => void
   }
 }
 

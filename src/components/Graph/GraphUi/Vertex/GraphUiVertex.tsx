@@ -63,7 +63,7 @@ const UiVertex: React.FC<GraphUiVertexProps> = ({isShortestVertex, id, xPos, yPo
 
 
   const handleClick = () => {
-    handleDeleteVertex(id); // Передаем id в функцию handleDeleteVertex
+    handleDeleteVertex(id); 
   };
 
 

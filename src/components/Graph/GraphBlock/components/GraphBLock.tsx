@@ -20,8 +20,8 @@ interface GraphBlockProps {
     handleDeleteEdge: (edges: IEdge[], index: number) => void
     handleUpdateEdgePosition: (edges: IEdge[], edgeDetails: IEdgeDetails) => void
     handleDeleteEdgesByVertex: (edges: IEdge[], index: number) => void
-    handleUpdateConnectionWeight: (connections: { [key: number]: [number, number][] }, connection: [number, number, number]) => void
-    handleDeleteConnectionsByVertex: (connections: { [key: number]: [number, number][] }, index: number) => void
+    handleUpdateConnectionWeight: (connections: Map<number, [number, number][]>, connection: [number, number, number]) => void
+    handleDeleteConnectionsByVertex: (connections: Map<number, [number, number][]>, index: number) => void
   }
 }
 
@@ -29,12 +29,11 @@ interface GraphBlockProps {
 const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunctions, edgesFunctions}) => {
 
   const handleVertexPositionUpdate = (id: number, xPos: number, yPos: number) => {
-   // dispatch(updateVertexPosition({id, xPos, yPos})); // Вызываем экшен для обновления позиции вершины в Redux-хранилище
    verticesFunctions.handleUpdateVertexPosition(graphDto.DTOvertices, {id, xPos, yPos});
   };
 
   const handleEdgePositionUpdate = (id: number, weight: number, left: number, top: number, angle: number) => {
-    edgesFunctions.handleUpdateEdgePosition(graphDto.DTOedges, {id, weight, left, top, angle}); // Вызываем экшен для обновления позиции вершины в Redux-хранилище
+    edgesFunctions.handleUpdateEdgePosition(graphDto.DTOedges, {id, weight, left, top, angle});
   };
 
   const handleConnectionWeightUpdate = (startVertex: number, endVertex: number, weight: number) =>{
@@ -46,10 +45,6 @@ const GraphBLock: React.FC<GraphBlockProps> = ({editMode, graphDto, verticesFunc
     edgesFunctions.handleDeleteConnectionsByVertex(graphDto.DTOconnections, id)
     verticesFunctions.handleDeleteVertex(graphDto.DTOvertices, id)
     edgesFunctions.handleDeleteEdgesByVertex(graphDto.DTOedges, id)
-  }
-
-  const handleDeleteEdge = (id: number) =>{
-
   }
 
 

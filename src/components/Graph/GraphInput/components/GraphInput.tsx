@@ -22,7 +22,7 @@ interface GraphInputProps{
   }
   edgesFunctions: {
     handleAddEdge: (edges: IEdge[], pushedEdge: IEdge) => void
-    handleAddConnection: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => void
+    handleAddConnection: (connections: Map<number, [number, number][]>, pushedConnection: [number, number, number]) => void
   }
 }
 
@@ -75,7 +75,7 @@ const GraphInput:React.FC<GraphInputProps> = ({nameAlghorithm, onEditModeChange,
     addEdgeAEForm: (edges: IEdge[], pushedEdge: IEdge) => {
       edgesFunctions.handleAddEdge(edges, pushedEdge)
     },
-    addConnectionAEForm: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => {
+    addConnectionAEForm: (connections: Map<number, [number, number][]>, pushedConnection: [number, number, number]) => {
       edgesFunctions.handleAddConnection(connections, pushedConnection)
     },
   }

@@ -16,11 +16,7 @@ export function addVertex(vertex: IVertex): IVertex{
 
 
 export function deleteVertex(localstate: IVertex[], index: number): IVertex[]{
-    //const indexToRemove = localstate.findIndex(vertex => vertex.id === index);
-    if (index !== -1) {
-        return localstate.filter(vertex => vertex.id !== index)
-            //lastVertexId: localstate.lastVertexId-1
-    }
+    if (index !== -1) return localstate.filter(vertex => vertex.id !== index)
     return localstate
 }
 

@@ -3,5 +3,5 @@ import { IVertex } from "../IVertex.interface";
 export interface GraphDTO{
     DTOvertices: IVertex[]
     DTOedges: IEdge[]
-    DTOconnections: { [key: number]: [number, number][] };
+    DTOconnections: Map<number, [number, number][]>;
 }

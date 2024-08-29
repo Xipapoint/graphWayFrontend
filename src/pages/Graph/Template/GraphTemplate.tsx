@@ -21,7 +21,7 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [vertices, setVertices] = useState<IVertex[]>([])
   const [edges, setEdges] = useState<IEdge[]>([])
-  const [connections, setConnections] = useState<{ [key: number]: [number, number][] }>({});
+  const [connections, setConnections] = useState<Map<number, [number, number][]>>(new Map());
 
   let graphDto: GraphDTO = {
     DTOvertices: vertices,
@@ -83,7 +83,7 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
     },
 
     // Connection functions
-    handleAddConnection: (connections: { [key: number]: [number, number][] }, pushedConnection: [number, number, number]) => {
+    handleAddConnection: (connections: Map<number, [number, number][]>, pushedConnection: [number, number, number]) => {
       const result = addConnection(connections, pushedConnection)
       if(typeof result !== 'number'){
         setConnections(result)
@@ -91,11 +91,11 @@ const GraphTemplate:React.FC<GraphTemplateProps> = ({nameAlghorithm}) => {
         alert("Couldn`t add connection")
       }
     },
-    handleUpdateConnectionWeight: (connections: { [key: number]: [number, number][] }, connection: [number, number, number]) => {
+    handleUpdateConnectionWeight: (connections: Map<number, [number, number][]>, connection: [number, number, number]) => {
       const newConnections = updateConnectionWeight(connections, connection)
       setConnections(newConnections)
     },
-    handleDeleteConnectionsByVertex: (connections: { [key: number]: [number, number][] }, index: number) => {
+    handleDeleteConnectionsByVertex: (connections: Map<number, [number, number][]>, index: number) => {
       const newConnections = deleteConnectionsByVertex(connections, index)
       setConnections(newConnections)
     }

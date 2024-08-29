@@ -18,7 +18,7 @@ export function dejkstra(
     start: number, 
     end: number, 
     graphVertices: number[], 
-    connections: { [key: number]: [number, number][] },
+    connections: Map<number, [number, number][]>,
     edges: IEdge[],
     debugMode: boolean
     ): number {
@@ -116,7 +116,7 @@ export function dejkstra(
             
             return 0
         }
-        if (!connections[currentVertex]) continue;
+        if (!connections.get(currentVertex)) continue;
 
 
         // TODO: СДЕЛАТЬ ДЕБАГ МОД
@@ -135,9 +135,9 @@ export function dejkstra(
 
         if (currentWeight > pairCopy[index][1]) continue; 
 
-        for (let i = 0; i < connections[currentVertex].length; i++) {
+        for (let i = 0; i < connections.get(currentVertex)!.length; i++) {
             index = 0;
-            const neighbor = connections[currentVertex][i];
+            const neighbor = connections.get(currentVertex)![i];
             const [neighborVertex, neighborWeight] = neighbor;
             
             const newWeight: number = currentWeight + getWeightByVertices(neighborVertex, currentVertex);
