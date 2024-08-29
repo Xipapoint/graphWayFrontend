@@ -119,7 +119,6 @@ export function dejkstra(
         if (!connections.get(currentVertex)) continue;
 
 
-        // TODO: СДЕЛАТЬ ДЕБАГ МОД
         let currentEdge = allEdges[minWeightEdge] as HTMLElement
         if (minWeightEdge >= 0 && minWeightEdge < allEdges.length) {
             currentEdge = allEdges[minWeightEdge] as HTMLElement;
