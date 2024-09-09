@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import graphReducer from './reducers/GraphSlice'
-import GraphSlice from "./reducers/GraphSlice";
 import vertexReducer from './reducers/VertexSlice'
 import edgeReducer from './reducers/EdgeSlice'
 // import PQReducer from './reducers/PriorityQueueSlice'
