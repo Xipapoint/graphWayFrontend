@@ -3,6 +3,6 @@ export const routeConstants = {
     GRAPH_ROUTE:'/g',
     TREE_ROUT: '/t',
     DEJKSTRA_ROUTE: '/dejkstra',
-    BINARYTREE_ROUT:'/binarytree'
-    
+    BINARYTREE_ROUT:'/binarytree',
+    AUTH: '/auth',
 }
