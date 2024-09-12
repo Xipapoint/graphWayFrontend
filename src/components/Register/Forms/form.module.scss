@@ -23,7 +23,29 @@
             font-family: Roboto;
             font-weight: 100;
             color: #333333;
-            letter-spacing: 0.05vw;
+            font-size: 15px;
         }
+    }
+    
+    .form{
+        margin-top: 10vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .authInput{
+            margin-top: 4vh;
+            width: 30vw;
+            border: none;
+            background-color: transparent;
+            border-bottom: 1px solid #E4E4EA;
+            font-size: 16px;
+            letter-spacing: 0.1vw;
+        }
+        .authInput:focus-visible{
+            outline: none;
+            border-bottom: 2px solid #c9c9c9;
+        }
+
     }
 }

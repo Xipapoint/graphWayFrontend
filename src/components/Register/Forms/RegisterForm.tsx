@@ -9,10 +9,10 @@ const RegisterForm = () => {
         <button className={styles.auth0button}>Sign up with GitHub</button>
       </div>
       <p>-OR-</p>
-      <form action="">
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
+      <form className={styles.form} action="">
+        <input className={styles.authInput} placeholder='Nickname' type='text' />
+        <input className={styles.authInput} placeholder='Email' type='email'/>
+        <input className={styles.authInput} placeholder='Password' type='password' />
       </form>
     </div>
   )
