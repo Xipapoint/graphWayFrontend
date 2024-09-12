@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import styles from './header.module.scss'
 
 const Header = () => {
@@ -32,7 +32,7 @@ const Header = () => {
               <div className={styles.scrollItem}>comfortable</div>
             </span>
           </div>
-          instrument to create and play with graphs
+          <p style={{margin: 0}}>instrument to create and play with graphs</p>
         </h1>
         <p style={{color: 'white', fontSize:'30px', animationDelay: '2s'}}  ref={pRef}>
           Unleash Your Creativity and Dive into the World of Graphs with GraphWay!
