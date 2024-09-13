@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './form.module.scss'
+import RegisterButton from '../Buttons/auth/RegisterButton'
 const RegisterForm = () => {
   return (
     <div className={styles.authForm}>
@@ -14,6 +15,8 @@ const RegisterForm = () => {
         <input className={styles.authInput} placeholder='Email' type='email'/>
         <input className={styles.authInput} placeholder='Password' type='password' />
       </form>
+      <RegisterButton/>
+      <p style={{fontSize: '13px'}}>Already have an account? Log in</p>
     </div>
   )
 }

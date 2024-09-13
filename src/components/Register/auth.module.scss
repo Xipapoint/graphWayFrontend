@@ -1,9 +1,4 @@
 .container{
-    .image{
-        height: 100%;
-        width: 50%;
-        background-color: #d9dcf0;
-    }
     display: flex;
     align-items: center;
     width: 95vw;
@@ -11,4 +6,9 @@
     height: 95vh;
     display: flex;
     background-color: #F7F8FF;
+    .image{
+        height: 100%;
+        width: 50%;
+        background-color: #d9dcf0;
+    }
 }
