@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { authHttp } from "../components/http/api";
+import { authHttp } from "../http/api";
 import { IJwtUserResponseDto } from "../dto/response/auth/JwtUserResponseDTO.dto";
 
 

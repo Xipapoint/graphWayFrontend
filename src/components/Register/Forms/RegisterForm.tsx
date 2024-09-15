@@ -3,7 +3,9 @@ import styles from './form.module.scss'
 import RegisterButton from '../Buttons/auth/RegisterButton'
 import { registerSchema } from './schemas/registerSchema';
 import { IRegiterUserRequestDto } from '../../../dto/request/auth/RegisterUserRequestDTO.dto';
-import { AuthApi, registerUser } from '../../../api/authApi';
+import { AuthApi } from '../../../api/authApi';
+import { useLocalStorage } from '../../../shared/hooks/useLocalStorage';
+import useErrorToast from '../../../shared/hooks/errorToast';
 interface IFormFields{
   nickname: string;
   email: string;
@@ -22,6 +24,9 @@ const RegisterForm = () => {
     email: '',
     password: '',
   });
+  const { handleError } = useErrorToast()
+  const { setItem } = useLocalStorage()
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -38,10 +43,13 @@ const RegisterForm = () => {
       console.log('Form submitted successfully:', formData);
       try {
         const response = await AuthApi.registerUser(formData.username, formData.email, formData.password)
+        const {accessToken, id} = response.data;
+        setItem('accessToken', accessToken)
+        setItem('UID', id)
       } catch (error) {
-        
+        handleError(error)
       } finally{
-
+        setLoading(false)
       }
       setLoading(false)
     } else {

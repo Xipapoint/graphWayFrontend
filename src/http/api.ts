@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BadInternetConnection } from "../../error/Errors/4__Error/BadInternetConnection";
+import { BadInternetConnection } from "../error/Errors/4__Error/BadInternetConnection";
 
 interface AuthResponse {
     accessToken: string;
@@ -14,7 +14,7 @@ const setupApiClient = (authUrl: string, baseUrl?: string) => {
     });
 
     $api.interceptors.request.use((config) => {
-        config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+        config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
         return config;
     });
 
