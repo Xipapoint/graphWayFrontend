@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styles from './form.module.scss'
 import RegisterButton from '../Buttons/auth/RegisterButton'
 import { registerSchema } from './schemas/registerSchema';
+import { IRegiterUserRequestDto } from '../../../dto/request/auth/RegisterUserRequestDTO.dto';
+import { AuthApi, registerUser } from '../../../api/authApi';
 interface IFormFields{
   nickname: string;
   email: string;
@@ -9,14 +11,14 @@ interface IFormFields{
 }
 
 const RegisterForm = () => {
-  const [formData, setFormData] = useState<IFormFields>({
-    nickname: '',
+  const [formData, setFormData] = useState<IRegiterUserRequestDto>({
+    username: '',
     email: '',
     password: '',
   });
   const [loading, setLoading] = useState(false);
-  const [formErrors, setFormErrors] = useState<Partial<IFormFields>>({
-    nickname: '',
+  const [formErrors, setFormErrors] = useState<Partial<IRegiterUserRequestDto>>({
+    username: '',
     email: '',
     password: '',
   });
@@ -25,15 +27,22 @@ const RegisterForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true)
-    setFormErrors({ nickname: '', email: '', password: '' });
+    setFormErrors({ username: '', email: '', password: '' });
 
     const result = registerSchema.safeParse(formData);
 
     if (result.success) {
       console.log('Form submitted successfully:', formData);
+      try {
+        const response = await AuthApi.registerUser(formData.username, formData.email, formData.password)
+      } catch (error) {
+        
+      } finally{
+
+      }
       setLoading(false)
     } else {
       const errors: Partial<IFormFields> = {};
@@ -60,11 +69,11 @@ const RegisterForm = () => {
           className={styles.authInput} 
           placeholder='Nickname' 
           type='text' 
-          value={formData.nickname}
+          value={formData.username}
           onChange={handleChange}
           required
         />
-        {formErrors.nickname && <p>{formErrors.nickname}</p>}
+        {formErrors.username && <p>{formErrors.username}</p>}
         <input 
           className={styles.authInput} 
           placeholder='Email' 
