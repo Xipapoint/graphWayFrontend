@@ -75,7 +75,8 @@ const RegisterForm = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         <input 
           className={styles.authInput} 
-          placeholder='Nickname' 
+          placeholder='Username' 
+          name='username'
           type='text' 
           value={formData.username}
           onChange={handleChange}
@@ -84,7 +85,8 @@ const RegisterForm = () => {
         {formErrors.username && <p>{formErrors.username}</p>}
         <input 
           className={styles.authInput} 
-          placeholder='Email' 
+          placeholder='Email'
+          name='email' 
           type='email'
           value={formData.email}
           onChange={handleChange}
@@ -94,6 +96,7 @@ const RegisterForm = () => {
         <input
         className={styles.authInput} 
         placeholder='Password' 
+        name='password'
         type='password' 
         value={formData.password}
         onChange={handleChange}
