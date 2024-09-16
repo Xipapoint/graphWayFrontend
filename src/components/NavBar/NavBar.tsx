@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import styles from './navBar.module.scss'
-import { publicRoutes } from '../../app/router'
+import { useLocalStorage } from '../../shared/hooks/useLocalStorage'
+import { routeConstants } from '../../shared/constants/routeConstants'
+import { Link } from 'react-router-dom'
+import { AuthApi } from '../../api/authApi'
 
 const NavBar = () => {
-    let auth: boolean = false
+    const {getItem, deleteItem} = useLocalStorage()
+    const auth = getItem('auth')
+    async function handleLogOut():Promise<MouseEventHandler<HTMLDivElement> | undefined>{
+       const response = await AuthApi.logout()
+        console.log(response);
+        
+        deleteItem('auth')
+        deleteItem('UID')
+        deleteItem('accessToken')
+        
+        return
+    }
   return (
     <div className={styles.navBar}>
         <div className={styles.navBarItems}>
@@ -12,7 +26,7 @@ const NavBar = () => {
 
 
         <div className={styles.navBarItemsInfo}>
-            <div className={styles.navBarItem}><a href='/g/dejkstra'>Graphs</a></div>
+            <div className={styles.navBarItem}><Link to={routeConstants.GRAPH_ROUTE + routeConstants.DEJKSTRA_ROUTE}>Graphs</Link></div>
             <div className={styles.navBarItem}>Structures</div>
             <div className={styles.navBarItem}>Forum</div>
             <div className={styles.navBarItem}>Feedback</div>
@@ -22,14 +36,14 @@ const NavBar = () => {
 
         {
             auth ?
-            <div className={styles.navBarItemsUser}>        
+            <div className={styles.navBarItemsUser}>   
+                <div onClick={handleLogOut} className={styles.navBarItem}>Log out</div>     
                 <div className={styles.navBarItem}>User</div>
                 <div className={styles.navBarItem}>Icon</div>
             </div>
             :
             <div className={styles.navBarItemsUser}>
-                <div className={styles.navBarItem}>Login</div>
-                <div className={styles.navBarItem}>Register</div>
+                <div className={styles.navBarItem}><Link to={routeConstants.AUTH}>Login</Link></div>
             </div>
         }
 

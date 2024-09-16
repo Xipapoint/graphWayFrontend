@@ -10,7 +10,7 @@ export function useLocalStorage() {
 
     function getItem(key: string){
         try {
-           localStorage.getItem(key)
+           return localStorage.getItem(key)
         } catch (error) {
             console.log(error);
             

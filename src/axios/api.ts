@@ -10,7 +10,8 @@ interface AuthResponse {
 const setupApiClient = (authUrl: string, baseUrl: string) => {
     const $api = axios.create({
         withCredentials: true,
-        baseURL: baseUrl
+        baseURL: baseUrl,
+        timeout: 5000,
     });
 
     $api.interceptors.request.use((config) => {

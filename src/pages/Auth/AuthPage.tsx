@@ -1,4 +1,3 @@
-import React from 'react'
 import Auth from '../../components/Register/Auth'
 import styles from './authPage.module.scss'
 const AuthPage = () => {

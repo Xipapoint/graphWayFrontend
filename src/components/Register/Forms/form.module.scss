@@ -52,4 +52,18 @@
             margin: 0;
         }
     }
+    .bottomText{
+        display: flex;
+        font-size: 13px;
+        .link{
+            margin: 0;
+            margin-left: 2px;
+            color: blue;
+            cursor: pointer;
+
+        }
+        .link:hover{
+            text-decoration: underline;
+        }
+    }
 }

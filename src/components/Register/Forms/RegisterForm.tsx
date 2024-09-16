@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { MouseEventHandler, useState } from 'react'
 import styles from './form.module.scss'
 import RegisterButton from '../Buttons/auth/RegisterButton'
 import { registerSchema } from './schemas/registerSchema';
@@ -15,7 +15,11 @@ interface IFormFields{
   password: string
 }
 
-const RegisterForm = () => {
+interface IRegisterFormProps{
+  setIsLogin: (isLogin: boolean) => void
+}
+
+const RegisterForm: React.FC<IRegisterFormProps> = ({setIsLogin}) => {
   const [formData, setFormData] = useState<IRegiterUserRequestDto>({
     username: '',
     email: '',
@@ -50,6 +54,7 @@ const RegisterForm = () => {
         const {accessToken, id} = response.data;
         setItem('accessToken', accessToken)
         setItem('UID', id)
+        setItem('auth', true)
         navigate('/home')
       } catch (error) {
         handleError(error)
@@ -67,6 +72,11 @@ const RegisterForm = () => {
       setLoading(false)
     }
   };
+
+  function handleSetIsLogin(): MouseEventHandler<HTMLDivElement> | undefined {
+    setIsLogin(true)
+    return
+  }
   return (
     
     <div className={styles.authForm}>
@@ -111,7 +121,7 @@ const RegisterForm = () => {
         <RegisterButton/>
 
       </form>
-      <p style={{fontSize: '13px'}}>Already have an account? Log in</p>
+      <div className={styles.bottomText}>Already have an account? <p onClick={handleSetIsLogin} className={styles.link}>Log in</p></div>
       <ToastContainer 
         position="top-center"
         autoClose={5000}
