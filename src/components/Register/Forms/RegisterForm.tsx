@@ -6,6 +6,9 @@ import { IRegiterUserRequestDto } from '../../../dto/request/auth/RegisterUserRe
 import { AuthApi } from '../../../api/authApi';
 import { useLocalStorage } from '../../../shared/hooks/useLocalStorage';
 import useErrorToast from '../../../shared/hooks/errorToast';
+import { ToastContainer, Bounce } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 interface IFormFields{
   nickname: string;
   email: string;
@@ -26,6 +29,7 @@ const RegisterForm = () => {
   });
   const { handleError } = useErrorToast()
   const { setItem } = useLocalStorage()
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -46,6 +50,7 @@ const RegisterForm = () => {
         const {accessToken, id} = response.data;
         setItem('accessToken', accessToken)
         setItem('UID', id)
+        navigate('/home')
       } catch (error) {
         handleError(error)
       } finally{
@@ -82,7 +87,7 @@ const RegisterForm = () => {
           onChange={handleChange}
           required
         />
-        {formErrors.username && <p>{formErrors.username}</p>}
+        {formErrors.username && <p className={styles.error}>{formErrors.username}</p>}
         <input 
           className={styles.authInput} 
           placeholder='Email'
@@ -92,7 +97,7 @@ const RegisterForm = () => {
           onChange={handleChange}
           required
         />
-        {formErrors.email && <p>{formErrors.email}</p>}
+        {formErrors.email && <p className={styles.error}>{formErrors.email}</p>}
         <input
         className={styles.authInput} 
         placeholder='Password' 
@@ -102,10 +107,25 @@ const RegisterForm = () => {
         onChange={handleChange}
         required
         />
-        {formErrors.password && <p>{formErrors.password}</p>}
+        {formErrors.password && <p className={styles.error}>{formErrors.password}</p>}
+        <RegisterButton/>
+
       </form>
-      <RegisterButton/>
       <p style={{fontSize: '13px'}}>Already have an account? Log in</p>
+      <ToastContainer 
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+        />
+
     </div>
   )
 }

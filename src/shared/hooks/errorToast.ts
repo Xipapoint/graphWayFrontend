@@ -3,6 +3,7 @@ import { ToastPosition, toast } from "react-toastify";
 import AppError from "../../error/ApiError";
 import { AxiosError } from "axios";
 import { BadInternetConnection } from "../../error/Errors/4__Error/BadInternetConnection";
+import 'react-toastify/dist/ReactToastify.css';
 
 interface UseErrorToastResult {
     handleError: (error: unknown) => void;
