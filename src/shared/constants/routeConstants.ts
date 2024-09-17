@@ -5,4 +5,5 @@ export const routeConstants = {
     DEJKSTRA_ROUTE: '/dejkstra',
     BINARYTREE_ROUT:'/binarytree',
     AUTH: '/auth',
+    SESSION_TYPES:'/stypes'
 }

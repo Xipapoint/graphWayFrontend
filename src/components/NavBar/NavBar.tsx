@@ -26,9 +26,9 @@ const NavBar = () => {
 
 
         <div className={styles.navBarItemsInfo}>
+            <div className={styles.navBarItem}><Link to={routeConstants.SESSION_TYPES}>Create session</Link></div>
             <div className={styles.navBarItem}><Link to={routeConstants.GRAPH_ROUTE + routeConstants.DEJKSTRA_ROUTE}>Graphs</Link></div>
-            <div className={styles.navBarItem}>Structures</div>
-            <div className={styles.navBarItem}>Forum</div>
+            <div className={styles.navBarItem}>News</div>
             <div className={styles.navBarItem}>Feedback</div>
             <div className={styles.navBarItem}>History</div>
         </div>

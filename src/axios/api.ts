@@ -7,7 +7,8 @@ interface AuthResponse {
     userId: string;
 }
 
-const setupApiClient = (authUrl: string, baseUrl: string) => {
+const setupApiClient = (baseUrl: string) => {
+    const authUrl = 'http://localhost:5000/api/auth'
     const $api = axios.create({
         withCredentials: true,
         baseURL: baseUrl,
@@ -47,4 +48,5 @@ const setupApiClient = (authUrl: string, baseUrl: string) => {
     return $api;
 };
 
-export const authHttp = setupApiClient('http://localhost:5000/api/auth', 'http://localhost:5000/api/auth')
+export const authHttp = setupApiClient('http://localhost:5000/api/auth')
+export const sessionHttp = setupApiClient('http://localhost:5000/api/session')
