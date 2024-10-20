@@ -3,7 +3,6 @@ import { getWeightByVertices } from "../../../../../shared/helpers/GetWeightByVe
 import { PriorityQueue } from "./PriorityQueue";
 import vertexStyles from '../../../GraphUi/Vertex/vertex.module.scss'
 import edgeStyles from '../../../GraphUi/Edge/edge.module.scss'
-import { IEdge } from "../../../../../entities/Graph/IEdge.interface";
 
 let pairCopy: number[][] = [];
 let shortestWay: number[][] = []
@@ -19,10 +18,8 @@ export function dejkstra(
     end: number, 
     graphVertices: number[], 
     connections: Map<number, [number, number][]>,
-    edges: IEdge[],
-    debugMode: boolean
     ): number {
-    if (Object.keys(connections).length === 0) {
+    if (connections.size === 0) {
         alert("No existing edges");
         return -1
     }
@@ -33,19 +30,6 @@ export function dejkstra(
     pairCopy = []
     shortestWay = []
     console.log("graph vertices:", graphVertices);
-    
-    // for(let i = 0; i < graphVertices.length; i++){
-    //     let index: number = graphVertices[i]
-    //     pairCopy[i] = {}
-    //     if(index === start){
-    //         pairCopy[i][index] = [0, 0]
-    //         distances[index] = 0
-    //     }
-    //     distances[index] = Number.MAX_VALUE
-    //     pairCopy[i][index] = [Number.MAX_VALUE, 0]
-    // }
-
-
     for(let i = 0; i < graphVertices.length; i++){
         pairCopy[i] = []
         if(graphVertices[i] === start) {
@@ -111,7 +95,7 @@ export function dejkstra(
             shortestWay[0].push(currentVertex);
             shortestWay[0].reverse();
             console.log(shortestWay);
-            let currentEdge = allEdges[minWeightEdge] as HTMLElement
+            const currentEdge = allEdges[minWeightEdge] as HTMLElement
             currentEdge.style.backgroundColor = 'aqua'
             
             return 0
@@ -119,13 +103,11 @@ export function dejkstra(
         if (!connections.get(currentVertex)) continue;
 
 
-        let currentEdge = allEdges[minWeightEdge] as HTMLElement
-        if (minWeightEdge >= 0 && minWeightEdge < allEdges.length) {
-            currentEdge = allEdges[minWeightEdge] as HTMLElement;
-            currentEdge.style.backgroundColor = 'red';
-        } else {
-
-        }
+        // let currentEdge = allEdges[minWeightEdge] as HTMLElement
+        // if (minWeightEdge >= 0 && minWeightEdge < allEdges.length) {
+        //     currentEdge = allEdges[minWeightEdge] as HTMLElement;
+        //     currentEdge.style.backgroundColor = 'red';
+        // }
 
         index = 0
         while(pairCopy[index][0] !== currentVertex){
@@ -137,7 +119,7 @@ export function dejkstra(
         for (let i = 0; i < connections.get(currentVertex)!.length; i++) {
             index = 0;
             const neighbor = connections.get(currentVertex)![i];
-            const [neighborVertex, neighborWeight] = neighbor;
+            const [neighborVertex, ] = neighbor;
             
             const newWeight: number = currentWeight + getWeightByVertices(neighborVertex, currentVertex);
 
@@ -164,7 +146,7 @@ export function dejkstra(
                     minWeightVertex = neighborVertex;
                     for (let j = 0; j < allEdges.length; j++) {
                         if (allEdges[j].getAttribute('start-vertex') === currentVertex.toString() && allEdges[j].getAttribute('end-vertex') === minWeightVertex.toString()) {
-                            let currentEdge = allEdges[minWeightEdge] as HTMLElement
+                            const currentEdge = allEdges[minWeightEdge] as HTMLElement
                             currentEdge.style.backgroundColor = 'aqua'
                             minWeightEdge = j
                             console.log(minWeightEdge);

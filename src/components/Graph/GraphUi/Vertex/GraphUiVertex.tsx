@@ -1,7 +1,6 @@
-import React, { RefObject, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './vertex.module.scss'
-import useRef from 'react';
-import { GRAPHSIZES } from '../../../../shared/constants/graphConstants';
+import useGraphSize from '../../../../shared/hooks/useGraphSize';
 
 
 interface GraphUiVertexProps {
@@ -17,22 +16,19 @@ interface GraphUiVertexProps {
 }
 
 const UiVertex: React.FC<GraphUiVertexProps> = ({isShortestVertex, id, xPos, yPos, draggable, updateVertexPosition, pair, handleDeleteVertex, editMode}) => {
-
   let visualWeight = pair[1];
-
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-
+  const { size, heightSize } = useGraphSize(500)
   if(visualWeight === Number.MAX_VALUE) visualWeight = Infinity
-
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDragging) return;
       let newX = e.clientX - offset.x;
       let newY = e.clientY - offset.y;
 
-      newX = Math.max(0, Math.min(newX, GRAPHSIZES.Width - 36));
-      newY = Math.max(0, Math.min(newY, GRAPHSIZES.Height - 36));
+      newX = Math.max(0, Math.min(newX, size - 30));
+      newY = Math.max(0, Math.min(newY, heightSize - 30));
 
       updateVertexPosition(id, newX, newY);
     };

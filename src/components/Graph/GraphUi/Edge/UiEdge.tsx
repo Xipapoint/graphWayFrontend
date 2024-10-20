@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import styles from './edge.module.scss'
-import { getVertexCoordsByIndex } from '../../../../shared/helpers/GetVertexCordsByIndex';
 import { getVertexCenterCoords } from '../../../../shared/helpers/GetVertexCenterCoords';
 import { calculateWeight } from '../../../../shared/helpers/CalculateWeight';
 import { calculateAngle } from '../../../../shared/helpers/CalculateAngle';
@@ -20,16 +19,16 @@ interface UiEdgeProps {
   updateConnectionWeight: (startVertexId: number, endVertexId: number, WeightConnection: number) => void
 }
 
-const UiEdge: React.FC<UiEdgeProps> = ({id, left, top, angle, weight, vertices, updateEdgePosition, updateConnectionWeight, startVertex, endVertex}) => {
+const UiEdge: React.FC<UiEdgeProps> = ({id, left, top, angle, weight, updateEdgePosition, updateConnectionWeight, startVertex, endVertex}) => {
 
   const graph = document.getElementById('graph')
   const graphRect = graph?.getBoundingClientRect();
-  let startX, startY;
+  // let startX, startY;
 
-  const startVertexCords = getVertexCoordsByIndex(vertices, startVertex);
-  const endVertexCords = getVertexCoordsByIndex(vertices, endVertex);
+  // const startVertexCords = getVertexCoordsByIndex(vertices, startVertex);
+  // const endVertexCords = getVertexCoordsByIndex(vertices, endVertex);
 
-  let dummy: number = 0;
+  // let dummy: number = 0;
 
   const angleRef = useRef(angle);
   const weightRef = useRef(weight);

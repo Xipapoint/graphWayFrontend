@@ -1,11 +1,9 @@
-import React, { useEffect, useRef } from 'react'
-import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks/redux';
-import { vertexSlice } from '../../../../../store/reducers/VertexSlice';
-import { graphSlice } from '../../../../../store/reducers/GraphSlice';
+import React, { useEffect, useState } from 'react'
 import { GRAPHSIZES } from '../../../../../shared/constants/graphConstants';
 import { generateCoord } from '../../../../../shared/helpers/RandomCoord';
 import { IVertex } from '../../../../../entities/Graph/IVertex.interface';
 import UiAddVertexButton from '../../../GraphUi/Button/GraphInputButtons/UiAddVertexButton';
+import useGraphSize from '../../../../../shared/hooks/useGraphSize';
 
 
 
@@ -17,10 +15,11 @@ import UiAddVertexButton from '../../../GraphUi/Button/GraphInputButtons/UiAddVe
   let vertexId: number = 0
 
 const AddGraphVertexButton: React.FC<AddGraphVertexButtonProps> = ({vertices, handleAddVertex}) => {
+  const { size, heightSize } = useGraphSize(500)
   const addVertex = () => {
     
-    const randXPos = generateCoord(GRAPHSIZES.Width)
-    const randYPos = generateCoord(GRAPHSIZES.Height)
+    const randXPos = generateCoord(size)
+    const randYPos = generateCoord(heightSize)
     console.log(vertexId);
 
     if(vertices.length === 0){
