@@ -1,0 +1,102 @@
+@import "../../shared/config/styles/global.module.scss";
+.header{
+    @extend .flex-column-align-center;
+    position: fixed;
+    width: 100%;
+    font-weight: 600;
+    .headerInfo{
+        @extend .flex-column-align-center;
+        justify-content: center;
+        color: white;
+        position: relative;
+        top: 25%;
+        font-size: 3.75rem;
+        animation-delay: 0.8s;
+        .title {
+            background-size: 500%;
+            background-image: linear-gradient(to right, aqua, #DE7CC8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient 10s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .scrollContainer{
+            overflow: hidden;
+            height: 68px;
+            position: relative;
+            
+            .scroll{
+                @extend .flex-column-align-center;
+                justify-content: center;
+            }
+            .scrollAnim{
+                animation: scrollAnimation 5s ease-in-out forwards;
+                animation-delay: 3s;
+            }
+        
+            @keyframes scrollAnimation{
+                0% {
+                    transform: translateY(0);
+                }
+                25% {
+                    transform: translateY(-27%);
+                }
+                50% {
+                    transform: translateY(-55%);
+                }
+                75%{
+                    transform: translateY(-77%);
+                }
+                100% {
+                    transform: translateY(-77%);
+                }
+            }
+        }
+        .bottomParagraph{
+            @extend .text-align-center;
+            margin-top: 10px
+        }
+
+    }
+    
+    .animatedBottomParagraph{
+        @extend .text-align-center;
+        opacity: 0;
+        animation: moveup 0.8s ease-in-out forwards;
+        color: white; 
+        font-size: 30px; 
+        animation-delay: 1.5s;
+    }
+
+    .moveup {
+        opacity: 0;
+        animation: moveup 0.8s ease-in-out forwards;
+    }
+
+    @keyframes moveup {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+
+
+

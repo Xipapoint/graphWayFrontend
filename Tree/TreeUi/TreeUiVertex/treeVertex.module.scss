@@ -1,0 +1,24 @@
+.vertice {
+    z-index: 100;
+    width: 30px;
+    height: 30px;
+    background-color: #764abc;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    cursor: pointer;
+    user-select: none;  
+
+    .editVertexMode:hover{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: #9366db;
+    }
+}
+

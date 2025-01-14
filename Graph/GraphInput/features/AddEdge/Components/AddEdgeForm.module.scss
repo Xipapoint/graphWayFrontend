@@ -1,0 +1,12 @@
+.block_adding_edge{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: none;
+
+    .vertices_input{
+        margin-top: 30px;
+        display: flex;
+    }
+}
+

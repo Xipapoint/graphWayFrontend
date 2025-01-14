@@ -1,0 +1,9 @@
+.tree_input_block{
+    height: 100px;
+    width: 142vh;
+    border: 3px solid aqua;
+    background-color: #242526;
+    display: flex;
+    align-items: center;
+    animation: glowAnimation 1.5s ease-in-out infinite alternate;
+}
