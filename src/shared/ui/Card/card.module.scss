@@ -1,0 +1,25 @@
+.card{
+    display: flex;
+    width: 8rem;
+    height: 12rem;
+    align-items: center;
+    flex-direction: column;
+    background-color: #252525;
+    border-radius: 10px;
+    border: 1px solid aqua;
+    margin-top: 100px;
+    gap: 1.5rem;
+    h3{
+        color: white;
+    }
+    animation: glowAnimation 1s ease-in-out infinite alternate;
+}
+
+@keyframes glowAnimation {
+    0% {
+        box-shadow: 0 0 1px aqua;
+    }
+    100% {
+        box-shadow: 0 0 12px 6px aqua;
+    }
+}

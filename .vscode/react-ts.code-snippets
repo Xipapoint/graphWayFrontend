@@ -1,0 +1,104 @@
+{
+  "React Component": {
+    "prefix": "rc",
+    "body": [
+      "import React, { memo } from \"react\";",
+      "",
+      "interface Props {$1}",
+      "",
+      "const ${2:${TM_FILENAME_BASE}}: React.FC<Props> = ({ $3...props }) => {",
+      "  return ($0);",
+      "};",
+      "",
+      "export default memo($2);",
+      ""
+    ],
+    "description": "React Component"
+  },
+  "React Hook": {
+    "prefix": "rh",
+    "body": [
+      "import { useMemo } from \"react\";",
+      "",
+      "export type ${1:${TM_FILENAME_BASE/use(.*)/$1/}}Hook = {};",
+      "",
+      "const use$1 = ($2): $1Hook => {",
+      "  $0",
+      "",
+      "  return useMemo<$1Hook>(() => ({}), []);",
+      "};",
+      "",
+      "export default use$1;",
+      ""
+    ],
+    "description": "React Hook"
+  },
+  "React useMemo": {
+    "prefix": "rum",
+    "body": [
+      "const $1 = useMemo(() => {",
+      "  $TM_SELECTED_TEXT",
+      "  return $0",
+      "}, []);"
+    ],
+    "description": "React useMemo"
+  },
+  "React useState": {
+    "prefix": "rus",
+    "body": ["const [$1, set${2:${1/(.*)/${1:/capitalize}/}}] = useState($0);"],
+    "description": "React useState"
+  },
+  "React useCallback": {
+    "prefix": "ruc",
+    "body": ["const $1 = useCallback(($2) => {", "  $0", "}, []);"],
+    "description": "React useCallback"
+  },
+  "React Context": {
+    "prefix": "rctx",
+    "body": [
+      "import React, { createContext, useContext, useMemo } from \"react\";",
+      "",
+      "interface ${1:${TM_FILENAME_BASE}}Type {$2}",
+      "",
+      "const $1 = createContext<$1Type | null>(null);",
+      "",
+      "export const use$1 = (): $1Type => {",
+      "  const context = useContext($1);",
+      "",
+      "  if (context === null) {",
+      "    throw new Error(",
+      "      \"$1 cannot be null, please add a context provider.\"",
+      "    );",
+      "  }",
+      "",
+      "  return context;",
+      "};",
+      "",
+      "export const $1Provider: React.FC<React.PropsWithChildren> = ({",
+      "  children,",
+      "}) => {",
+      "  $0",
+      "",
+      "  const value = useMemo<$1Type>(() => ({}), []);",
+      "",
+      "  return (",
+      "    <$1.Provider value={value}>",
+      "      {children}",
+      "    </$1.Provider>",
+      "  );",
+      "};",
+      ""
+    ],
+    "description": "React Context"
+  },
+  "React useTranslation": {
+    "prefix": "rut",
+    "body": ["const { t } = useTranslation();"],
+    "description": "React useTranslation"
+  },
+  "Rect useEffect": {
+    "prefix": "rue",
+    "body": ["useEffect(() => {", "  $0", "}, []);"],
+    "description": "Rect useEffect"
+  }
+}

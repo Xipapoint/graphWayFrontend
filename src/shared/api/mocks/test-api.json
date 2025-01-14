@@ -1,0 +1,434 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Session Types API",
+      "version": "1.0.0",
+      "description": "API for managing session types and algorithms including retrieval, creation, update, and deletion."
+    },
+    "paths": {
+      "/session-types": {
+        "get": {
+          "summary": "Retrieve all session types",
+          "responses": {
+            "200": {
+              "description": "A list of session types",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/SessionType"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new session type",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewSessionType"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Session type created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SessionType"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/session-types/{id}": {
+        "get": {
+          "summary": "Retrieve a session type by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the session type to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Session type details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SessionType"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Session type not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a session type by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the session type to update"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateSessionType"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Updated session type",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SessionType"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Session type not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a session type by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the session type to delete"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Session type deleted"
+            },
+            "404": {
+              "description": "Session type not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/algorithms": {
+        "get": {
+          "summary": "Retrieve all algorithms",
+          "responses": {
+            "200": {
+              "description": "A list of algorithms",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Algorithm"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new algorithm",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewAlgorithm"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Algorithm created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Algorithm"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/algorithms/{id}": {
+        "get": {
+          "summary": "Retrieve an algorithm by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the algorithm to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Algorithm details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Algorithm"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Algorithm not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update an algorithm by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the algorithm to update"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateAlgorithm"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Updated algorithm",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Algorithm"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Algorithm not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete an algorithm by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the algorithm to delete"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Algorithm deleted"
+            },
+            "404": {
+              "description": "Algorithm not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "SessionType": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "imagePath": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "name", "description", "imagePath"]
+        },
+        "NewSessionType": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "imagePath": {
+              "type": "string"
+            }
+          },
+          "required": ["name", "description", "imagePath"]
+        },
+        "UpdateSessionType": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "imagePath": {
+              "type": "string"
+            }
+          }
+        },
+        "Algorithm": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "imagePath": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "name", "description", "imagePath"]
+        },
+        "NewAlgorithm": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "imagePath": {
+              "type": "string"
+            }
+          },
+          "required": ["name", "description", "imagePath"]
+        },
+        "UpdateAlgorithm": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "imagePath": {
+              "type": "string"
+            }
+          }
+        },
+        "ErrorResponse": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": ["message"]
+        }
+      }
+    }
+  }
+  
