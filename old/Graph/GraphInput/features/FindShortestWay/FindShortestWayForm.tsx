@@ -3,8 +3,8 @@ import styles from './FindShortestWay.module.scss'
 import { dejkstra, getCopyPair, getShortestWay } from './DejkstraAlghorithm';
 import InputWeightVertex from '../../../GraphUi/Input/GraphInputs/InputWeightVertex';
 import FindShortestWayButton from '../../../GraphUi/Button/GraphInputButtons/FindShortestWayButton';
-import { IVertex } from '../../../../../entities/Graph/IVertex.interface';
-import { IEdge } from '../../../../../entities/Graph/IEdge.interface';
+import { IVertex } from '../../../../entities/Graph/IVertex.interface';
+import { IEdge } from '../../../../entities/Graph/IEdge.interface';
 const name = "Find shortest way";
 
 interface FindShortestWayFormProps{

@@ -3,11 +3,11 @@ import styles from './GraphInput.module.scss'
 import AddGraphVertexButton from '../features/AddVertex/AddGraphVertexButton';
 import AddEdgeForm from '../features/AddEdge/Components/AddEdgeForm';
 import FindShortestWayForm from '../features/FindShortestWay/FindShortestWayForm';
-import { GraphDTO } from '../../../../entities/Graph/DTO/GraphDTO.dto';
-import { IVertex } from '../../../../entities/Graph/IVertex.interface';
-import { IVertexCoordinates } from '../../../../entities/Graph/IVertexCoordinates.interface';
-import { IEdge } from '../../../../entities/Graph/IEdge.interface';
-import { IEdgeDetails } from '../../../../entities/Graph/IEdgeDetails.interface';
+import { GraphDTO } from '../../../entities/Graph/DTO/GraphDTO.dto';
+import { IVertex } from '../../../entities/Graph/IVertex.interface';
+import { IVertexCoordinates } from '../../../entities/Graph/IVertexCoordinates.interface';
+import { IEdge } from '../../../entities/Graph/IEdge.interface';
+import { IEdgeDetails } from '../../../entities/Graph/IEdgeDetails.interface';
 
 
 interface GraphInputProps{

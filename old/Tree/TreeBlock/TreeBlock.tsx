@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux';
-import { edgeSlice } from '../../../store/reducers/EdgeSlice';
-import { vertexSlice } from '../../../store/reducers/VertexSlice';
-import { graphSlice } from '../../../store/reducers/GraphSlice';
+import { edgeSlice } from '../../store/reducers/EdgeSlice';
+import { vertexSlice } from '../../store/reducers/VertexSlice';
+import { graphSlice } from '../../store/reducers/GraphSlice';
 import TreeUiVertex from '../TreeUi/TreeUiVertex/TreeUiVertex';
 import styles from './treeBlock.module.scss'
 

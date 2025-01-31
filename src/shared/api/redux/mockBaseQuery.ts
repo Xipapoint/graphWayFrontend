@@ -1,54 +1,47 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+} from '@reduxjs/toolkit/query/react';
+import { ZodSchema } from 'zod';
 
-import sessionAlgorithmsMocks from '../mocks/sessionAlgorithmMocks';
-import sessionTypeMocks from '../mocks/sessionTypeMocks';
-import { BaseMock } from '../mocks/TBaseMock';
+type TBaseQuery = BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError,
+  { dataSchema?: ZodSchema },
+  FetchBaseQueryMeta
+>;
 
-type Query = { method: string; url: string; body: any };
+/**
+ * HOF that wraps a base query function with additional functionality for data validation using zod
+ *
+ * @param baseQuery The base query function to be wrapped.
+ * @returns A modified version of the baseQuery with added data validation.
+ */
+const baseQueryWithZodValidation: (baseQuery: TBaseQuery) => TBaseQuery =
+  (baseQuery: TBaseQuery) => async (args, api, extraOptions) => {
+    const returnValue = await baseQuery(args, api, extraOptions);
 
-const endpoints: Record<string, BaseMock> = {
-  '/algorithms': sessionAlgorithmsMocks,
-  '/session-types': sessionTypeMocks,
-};
+    const zodSchema = extraOptions?.dataSchema;
 
-const getEndpoints = (url: string) => {
-  return Object.entries(endpoints).find(([endpoint]) =>
-    url.includes(endpoint),
-  )?.[1];
-};
+    const { data } = returnValue;
 
-const mockBaseQuery = async (args: Partial<Query>) => {
-  console.log(args);
-  const { url, body } = args;
-
-  const mockKey = `${url}`;
-
-  const mock = getEndpoints(mockKey);
-
-  if (mock) {
-    const endpoint = mock[mockKey];
-    console.log(endpoint, mock, mockKey);
-
-    const status =
-      typeof endpoint.status === 'function'
-        ? endpoint.status(body)
-        : endpoint.status;
-    const response =
-      typeof endpoint.response === 'function'
-        ? endpoint.response(body)
-        : endpoint.response;
-
-    if (status >= 200 && status < 300) {
-      return { data: response };
-    } else {
-      return { error: { status, message: response || 'Error' } };
+    if (data && zodSchema) {
+      try {
+        zodSchema.parse(data);
+      } catch (error) {
+        throw error;
+      }
     }
-  }
 
-  return { error: { status: 404, message: 'Not Found' } };
-};
+    return returnValue;
+  };
 
+const baseQuery = fetchBaseQuery({ baseUrl: 'localhost:5000/' });
 export const emptySplitApi = createApi({
-  baseQuery: mockBaseQuery,
+  baseQuery: baseQueryWithZodValidation(baseQuery),
   endpoints: () => ({}),
 });

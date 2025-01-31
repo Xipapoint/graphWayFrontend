@@ -1,5 +1,5 @@
-import { IEdge } from "../../../../../entities/Graph/Edge";
-import { IEdgeDetails } from "../../../../../entities/Graph/IEdgeDetails.interface";
+import { IEdge } from "../../../../../old/entities/Graph/Edge";
+import { IEdgeDetails } from "../../../../../old/entities/Graph/IEdgeDetails.interface";
 
 export function addEdge(localstate: IEdge[], pushedEdge: IEdge): IEdge | number{
     const edgeExists = localstate.some(edge => 

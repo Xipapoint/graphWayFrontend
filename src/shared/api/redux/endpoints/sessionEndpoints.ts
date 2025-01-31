@@ -5,16 +5,14 @@ const injectedRtkApi = api.injectEndpoints({
       GetSessionTypesApiResponse,
       GetSessionTypesApiArg
     >({
-      query: () => ({
-        url: `/session-types/GET`,
-      }),
+      query: () => ({ url: `/session-types` }),
     }),
     postSessionTypes: build.mutation<
       PostSessionTypesApiResponse,
       PostSessionTypesApiArg
     >({
-      query: (queryArg: PostSessionTypesApiArg) => ({
-        url: `/session-types/POST`,
+      query: (queryArg) => ({
+        url: `/session-types`,
         method: 'POST',
         body: queryArg.newSessionType,
       }),
@@ -30,7 +28,7 @@ const injectedRtkApi = api.injectEndpoints({
       PutSessionTypesByIdApiArg
     >({
       query: (queryArg) => ({
-        url: `/session-types/${queryArg.id}/PUT`,
+        url: `/session-types/${queryArg.id}`,
         method: 'PUT',
         body: queryArg.updateSessionType,
       }),
@@ -40,7 +38,7 @@ const injectedRtkApi = api.injectEndpoints({
       DeleteSessionTypesByIdApiArg
     >({
       query: (queryArg) => ({
-        url: `/session-types/${queryArg.id}/`,
+        url: `/session-types/${queryArg.id}`,
         method: 'DELETE',
       }),
     }),

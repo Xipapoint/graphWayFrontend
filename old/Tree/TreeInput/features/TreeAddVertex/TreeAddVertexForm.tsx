@@ -3,11 +3,11 @@ import { IVertex } from "../../../../../entities/Graph/IVertex.interface";
 import { TREEBLOCKSIZES } from "../../../../../shared/constants/graphConstants";
 import { treeGenerateCoord } from '../../../../../shared/helpers/RandomCoord';
 import { useAppDispatch, useAppSelector } from "../../../../../shared/hooks/redux";
-import { graphSlice } from "../../../../../store/reducers/GraphSlice";
-import { vertexSlice } from "../../../../../store/reducers/VertexSlice";
+import { graphSlice } from "../../../../store/reducers/GraphSlice";
+import { vertexSlice } from "../../../../store/reducers/VertexSlice";
 import TreeUiAddVertexButton from "../../../TreeUi/TreeButton/TreeUiAddVertexButton";
 import { BinaryTree } from "../BinaryTree/BinaryTree";
-import { PriorityQueue } from "../../../../Graph/GraphInput/features/FindShortestWay/PriorityQueue";
+import { PriorityQueue } from "../../../../old/Graph/GraphInput/features/FindShortestWay/PriorityQueue";
 import TreeInputAddVertex from "../../../TreeUi/TreeInput/TreeInputAddVertex";
 
 

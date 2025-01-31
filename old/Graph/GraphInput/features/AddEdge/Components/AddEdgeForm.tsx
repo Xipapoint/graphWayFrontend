@@ -2,12 +2,12 @@ import React, { useMemo, useRef, useState } from 'react'
 import styles from './AddEdgeForm.module.scss'
 import { getVertexCenterCoords } from '../../../../../../shared/helpers/GetVertexCenterCoords'
 import { calculateWeight } from '../../../../../../shared/helpers/CalculateWeight'
-import { IEdge } from '../../../../../../entities/Graph/IEdge.interface'
+import { IEdge } from '../../../../../entities/Graph/IEdge.interface'
 import { calculateAngle } from '../../../../../../shared/helpers/CalculateAngle'
 import { GRAPHSIZES } from '../../../../../../shared/constants/graphConstants'
 import InputWeightVertex from '../../../../GraphUi/Input/GraphInputs/InputWeightVertex'
 import SmallTemplateButton from '../../../../GraphUi/Button/GraphInputButtons/SmallTemplateButton'
-import { IVertex } from '../../../../../../entities/Graph/IVertex.interface'
+import { IVertex } from '../../../../../entities/Graph/IVertex.interface'
 
 
 interface AddEdgeFormProps{

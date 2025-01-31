@@ -1,5 +1,5 @@
-import { IVertex } from "../../../../../entities/Graph/Vertex";
-import { IVertexCoordinates } from "../../../../../entities/Graph/IVertexCoordinates.interface";
+import { IVertex } from "../../../../../old/entities/Graph/Vertex";
+import { IVertexCoordinates } from "../../../../../old/entities/Graph/IVertexCoordinates.interface";
 
 export function addVertex(vertex: IVertex): IVertex{
 
