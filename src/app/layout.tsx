@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css';
 
 import './globals.css';
 
-import { StoreProvider } from '@/shared/lib/redux/StoreProvider';
+// import { StoreProvider } from '@/shared/lib/redux/StoreProvider';
 import type { Metadata } from 'next';
 import React from 'react';
 
@@ -28,10 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <StoreProvider>
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    </StoreProvider>
+    <html lang="en">
+      <body>{children}</body>
+    </html>
   );
 }

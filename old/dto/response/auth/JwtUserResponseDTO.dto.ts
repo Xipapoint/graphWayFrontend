@@ -1,5 +1,5 @@
-export class IJwtUserResponseDto {
-    accessToken: string;
-    refreshToken: string;
-    id: string;
-}
+// export class IJwtUserResponseDto {
+//     accessToken: string;
+//     refreshToken: string;
+//     id: string;
+// }

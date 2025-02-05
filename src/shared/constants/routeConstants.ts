@@ -1,9 +1,9 @@
+export const sessionComponentRoutes = {
+  mode: '/modes',
+  dataStructure: '/data-structures',
+  structure: '/structures',
+  algorithms: '/algorithms',
+} as const;
 export const routeConstants = {
-    HOME_ROUTE: '/home',
-    GRAPH_ROUTE:'/g',
-    TREE_ROUT: '/t',
-    DEJKSTRA_ROUTE: '/dejkstra',
-    BINARYTREE_ROUT:'/binarytree',
-    AUTH: '/auth',
-    SESSION_TYPES:'/stypes'
-}
+  ...sessionComponentRoutes,
+};

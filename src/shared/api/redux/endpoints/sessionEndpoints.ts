@@ -1,185 +1,274 @@
 import { emptySplitApi as api } from '../mockBaseQuery';
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getSessionTypes: build.query<
-      GetSessionTypesApiResponse,
-      GetSessionTypesApiArg
+    appControllerGetHello: build.query<
+      AppControllerGetHelloApiResponse,
+      AppControllerGetHelloApiArg
     >({
-      query: () => ({ url: `/session-types` }),
+      query: () => ({ url: `/` }),
     }),
-    postSessionTypes: build.mutation<
-      PostSessionTypesApiResponse,
-      PostSessionTypesApiArg
+    sessionModeControllerFindSessionModes: build.query<
+      SessionModeControllerFindSessionModesApiResponse,
+      SessionModeControllerFindSessionModesApiArg
+    >({
+      query: () => ({ url: `/session-modes/all` }),
+    }),
+    sessionModeControllerCreateSessionMode: build.mutation<
+      SessionModeControllerCreateSessionModeApiResponse,
+      SessionModeControllerCreateSessionModeApiArg
     >({
       query: (queryArg) => ({
-        url: `/session-types`,
+        url: `/session-modes/create`,
         method: 'POST',
-        body: queryArg.newSessionType,
+        body: queryArg.createSessionModeRequestDto,
       }),
     }),
-    getSessionTypesById: build.query<
-      GetSessionTypesByIdApiResponse,
-      GetSessionTypesByIdApiArg
+    sessionStructureControllerFindSessionStructures: build.query<
+      SessionStructureControllerFindSessionStructuresApiResponse,
+      SessionStructureControllerFindSessionStructuresApiArg
     >({
-      query: (queryArg) => ({ url: `/session-types/${queryArg.id}` }),
+      query: () => ({ url: `/session-structures/all` }),
     }),
-    putSessionTypesById: build.mutation<
-      PutSessionTypesByIdApiResponse,
-      PutSessionTypesByIdApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/session-types/${queryArg.id}`,
-        method: 'PUT',
-        body: queryArg.updateSessionType,
-      }),
-    }),
-    deleteSessionTypesById: build.mutation<
-      DeleteSessionTypesByIdApiResponse,
-      DeleteSessionTypesByIdApiArg
+    sessionStructureControllerCreateSessionStructure: build.mutation<
+      SessionStructureControllerCreateSessionStructureApiResponse,
+      SessionStructureControllerCreateSessionStructureApiArg
     >({
       query: (queryArg) => ({
-        url: `/session-types/${queryArg.id}`,
-        method: 'DELETE',
-      }),
-    }),
-    getAlgorithms: build.query<GetAlgorithmsApiResponse, GetAlgorithmsApiArg>({
-      query: () => ({ url: `/algorithms` }),
-    }),
-    postAlgorithms: build.mutation<
-      PostAlgorithmsApiResponse,
-      PostAlgorithmsApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/algorithms`,
+        url: `/session-structures/create`,
         method: 'POST',
-        body: queryArg.newAlgorithm,
+        body: queryArg.createSessionStructureRequestDto,
       }),
     }),
-    getAlgorithmsById: build.query<
-      GetAlgorithmsByIdApiResponse,
-      GetAlgorithmsByIdApiArg
-    >({
-      query: (queryArg) => ({ url: `/algorithms/${queryArg.id}` }),
-    }),
-    putAlgorithmsById: build.mutation<
-      PutAlgorithmsByIdApiResponse,
-      PutAlgorithmsByIdApiArg
+    sessionStructureControllerFindSessionAlgorithmsByStructureId: build.query<
+      SessionStructureControllerFindSessionAlgorithmsByStructureIdApiResponse,
+      SessionStructureControllerFindSessionAlgorithmsByStructureIdApiArg
     >({
       query: (queryArg) => ({
-        url: `/algorithms/${queryArg.id}`,
-        method: 'PUT',
-        body: queryArg.updateAlgorithm,
+        url: `/session-structures/by-data-structure/${queryArg.dataStructureId}`,
       }),
     }),
-    deleteAlgorithmsById: build.mutation<
-      DeleteAlgorithmsByIdApiResponse,
-      DeleteAlgorithmsByIdApiArg
+    sessionDataStructureControllerFindSessionDataStructures: build.query<
+      SessionDataStructureControllerFindSessionDataStructuresApiResponse,
+      SessionDataStructureControllerFindSessionDataStructuresApiArg
+    >({
+      query: () => ({ url: `/session-data-structures/all` }),
+    }),
+    sessionDataStructureControllerCreateSessionDataStructure: build.mutation<
+      SessionDataStructureControllerCreateSessionDataStructureApiResponse,
+      SessionDataStructureControllerCreateSessionDataStructureApiArg
     >({
       query: (queryArg) => ({
-        url: `/algorithms/${queryArg.id}`,
-        method: 'DELETE',
+        url: `/session-data-structures/create`,
+        method: 'POST',
+        body: queryArg.createSessionDataStructureRequestDto,
+      }),
+    }),
+    sessionAlgorithmControllerFindSessionAlgorithms: build.query<
+      SessionAlgorithmControllerFindSessionAlgorithmsApiResponse,
+      SessionAlgorithmControllerFindSessionAlgorithmsApiArg
+    >({
+      query: () => ({ url: `/session-algorithms/all` }),
+    }),
+    sessionAlgorithmControllerCreateSessionAlgorithm: build.mutation<
+      SessionAlgorithmControllerCreateSessionAlgorithmApiResponse,
+      SessionAlgorithmControllerCreateSessionAlgorithmApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/session-algorithms/create`,
+        method: 'POST',
+        body: queryArg.createSessionAlgorithmRequestDto,
+      }),
+    }),
+    sessionAlgorithmControllerFindSessionAlgorithmsByStructureId: build.query<
+      SessionAlgorithmControllerFindSessionAlgorithmsByStructureIdApiResponse,
+      SessionAlgorithmControllerFindSessionAlgorithmsByStructureIdApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/session-algorithms/by-structure/${queryArg.structureId}`,
+      }),
+    }),
+    graphSessionControllerCreateGraphSession: build.mutation<
+      GraphSessionControllerCreateGraphSessionApiResponse,
+      GraphSessionControllerCreateGraphSessionApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/graph-sessions/create`,
+        method: 'POST',
+        body: queryArg.createGraphSessionRequestDto,
       }),
     }),
   }),
   overrideExisting: false,
 });
 export { injectedRtkApi as SessionEndpoints };
-export type GetSessionTypesApiResponse =
-  /** status 200 A list of session types */ SessionType[];
-export type GetSessionTypesApiArg = void;
-export type PostSessionTypesApiResponse =
-  /** status 201 Session type created */ SessionType;
-export type PostSessionTypesApiArg = {
-  newSessionType: NewSessionType;
+export type AppControllerGetHelloApiResponse = unknown;
+export type AppControllerGetHelloApiArg = void;
+export type SessionModeControllerFindSessionModesApiResponse =
+  /** status 200 The found session modes */ FindSessionModesResponseDto;
+export type SessionModeControllerFindSessionModesApiArg = void;
+export type SessionModeControllerCreateSessionModeApiResponse = unknown;
+export type SessionModeControllerCreateSessionModeApiArg = {
+  createSessionModeRequestDto: CreateSessionModeRequestDto;
 };
-export type GetSessionTypesByIdApiResponse =
-  /** status 200 Session type details */ SessionType;
-export type GetSessionTypesByIdApiArg = {
-  /** ID of the session type to retrieve */
-  id: number;
+export type SessionStructureControllerFindSessionStructuresApiResponse =
+  /** status 200 The found session Structures */ FindSessionStructuresResponseDto;
+export type SessionStructureControllerFindSessionStructuresApiArg = void;
+export type SessionStructureControllerCreateSessionStructureApiResponse =
+  unknown;
+export type SessionStructureControllerCreateSessionStructureApiArg = {
+  createSessionStructureRequestDto: CreateSessionStructureRequestDto;
 };
-export type PutSessionTypesByIdApiResponse =
-  /** status 200 Updated session type */ SessionType;
-export type PutSessionTypesByIdApiArg = {
-  /** ID of the session type to update */
-  id: number;
-  updateSessionType: UpdateSessionType;
+export type SessionStructureControllerFindSessionAlgorithmsByStructureIdApiResponse =
+  /** status 200 The found session structures by data structure ID */ SessionStructureDto[];
+export type SessionStructureControllerFindSessionAlgorithmsByStructureIdApiArg =
+  {
+    dataStructureId: string;
+  };
+export type SessionDataStructureControllerFindSessionDataStructuresApiResponse =
+  /** status 200 The found session DataStructures */ FindSessionDataStructuresResponseDto;
+export type SessionDataStructureControllerFindSessionDataStructuresApiArg =
+  void;
+export type SessionDataStructureControllerCreateSessionDataStructureApiResponse =
+  unknown;
+export type SessionDataStructureControllerCreateSessionDataStructureApiArg = {
+  createSessionDataStructureRequestDto: CreateSessionDataStructureRequestDto;
 };
-export type DeleteSessionTypesByIdApiResponse = unknown;
-export type DeleteSessionTypesByIdApiArg = {
-  /** ID of the session type to delete */
-  id: number;
+export type SessionAlgorithmControllerFindSessionAlgorithmsApiResponse =
+  /** status 200 The found session algorithms */ FindSessionAlgorithmsResponseDto;
+export type SessionAlgorithmControllerFindSessionAlgorithmsApiArg = void;
+export type SessionAlgorithmControllerCreateSessionAlgorithmApiResponse =
+  unknown;
+export type SessionAlgorithmControllerCreateSessionAlgorithmApiArg = {
+  createSessionAlgorithmRequestDto: CreateSessionAlgorithmRequestDto;
 };
-export type GetAlgorithmsApiResponse =
-  /** status 200 A list of algorithms */ Algorithm[];
-export type GetAlgorithmsApiArg = void;
-export type PostAlgorithmsApiResponse =
-  /** status 201 Algorithm created */ Algorithm;
-export type PostAlgorithmsApiArg = {
-  newAlgorithm: NewAlgorithm;
+export type SessionAlgorithmControllerFindSessionAlgorithmsByStructureIdApiResponse =
+  /** status 200 The found session algorithms by structure ID */ SessionAlgorithmDto[];
+export type SessionAlgorithmControllerFindSessionAlgorithmsByStructureIdApiArg =
+  {
+    structureId: string;
+  };
+export type GraphSessionControllerCreateGraphSessionApiResponse = unknown;
+export type GraphSessionControllerCreateGraphSessionApiArg = {
+  createGraphSessionRequestDto: CreateGraphSessionRequestDto;
 };
-export type GetAlgorithmsByIdApiResponse =
-  /** status 200 Algorithm details */ Algorithm;
-export type GetAlgorithmsByIdApiArg = {
-  /** ID of the algorithm to retrieve */
-  id: number;
-};
-export type PutAlgorithmsByIdApiResponse =
-  /** status 200 Updated algorithm */ Algorithm;
-export type PutAlgorithmsByIdApiArg = {
-  /** ID of the algorithm to update */
-  id: number;
-  updateAlgorithm: UpdateAlgorithm;
-};
-export type DeleteAlgorithmsByIdApiResponse = unknown;
-export type DeleteAlgorithmsByIdApiArg = {
-  /** ID of the algorithm to delete */
-  id: number;
-};
-export type SessionType = {
-  id: number;
-  name: string;
+export type SessionModeDto = {
+  /** The unique identifier of the session mode */
+  id: string;
+  /** The title of the session mode */
+  title: string;
+  /** The description of the session mode */
   description: string;
-  imagePath: string;
+  /** The image associated with the session mode */
+  image: Blob;
 };
-export type NewSessionType = {
-  name: string;
+export type FindSessionModesResponseDto = {
+  /** List of session modes */
+  sessionModes: SessionModeDto[];
+};
+export type CreateSessionModeRequestDto = {
+  title: string;
   description: string;
-  imagePath: string;
+  /** Image file for the session mode */
+  image: Blob;
 };
-export type ErrorResponse = {
-  message: string;
-};
-export type UpdateSessionType = {
-  name?: string;
-  description?: string;
-  imagePath?: string;
-};
-export type Algorithm = {
-  id: number;
-  name: string;
+export type SessionStructureDto = {
+  /** The unique identifier of the session structure */
+  id: string;
+  /** The title of the session structure */
+  title: string;
+  /** The description of the session structure */
   description: string;
-  imagePath: string;
+  /** The image associated with the session structure */
+  image: Blob;
+  /** The unique identifiers of the session Data Structures that are associated with the session Structure */
+  sessionDataStructureIds: string[];
 };
-export type NewAlgorithm = {
-  name: string;
+export type FindSessionStructuresResponseDto = {
+  /** List of session modes */
+  sessionStructures: SessionStructureDto[];
+};
+export type CreateSessionStructureRequestDto = {
+  title: string;
   description: string;
-  imagePath: string;
+  /** Image file for the session structure */
+  image: Blob;
+  sessionDataStructureIds: string[];
 };
-export type UpdateAlgorithm = {
-  name?: string;
-  description?: string;
-  imagePath?: string;
+export type SessionDataStructureDto = {
+  /** The unique identifier of the session data structure */
+  id: string;
+  /** The title of the session mode */
+  title: string;
+  /** The description of the session data structure */
+  description: string;
+  /** The image associated with the session data structure */
+  image: Blob;
+};
+export type FindSessionDataStructuresResponseDto = {
+  /** List of session data structures */
+  sessionDataStructures: SessionDataStructureDto[];
+};
+export type CreateSessionDataStructureRequestDto = {
+  title: string;
+  description: string;
+  /** Image file for the session data structure */
+  image: Blob;
+};
+export type SessionAlgorithmDto = {
+  /** The unique identifier of the session Algorithm */
+  id: string;
+  /** The title of the session mode */
+  title: string;
+  /** The description of the session Algorithm */
+  description: string;
+  /** The image associated with the session Algorithm */
+  image: Blob;
+  /** The unique identifiers of the session structures that are associated with the session Algorithm */
+  sessionStructureIds: string[];
+};
+export type FindSessionAlgorithmsResponseDto = {
+  /** List of session algorithms */
+  sessionAlgorithms: SessionAlgorithmDto[];
+};
+export type CreateSessionAlgorithmRequestDto = {
+  title: string;
+  description: string;
+  /** Image file for the session algorithm */
+  image: Blob;
+  sessionStructureIds: string[];
+};
+export type CreateGraphSessionRequestDto = {
+  /** Unique identifier for the session */
+  id: string;
+  image: Buffer;
+  /** Identifier for the data structure type */
+  sessionDataStructureId: string;
+  /** Identifier for the structure type of data structure */
+  sessionStructureId: string;
+  /** Identifier for the user */
+  userId: string;
+  /** Identifier for the session mode */
+  sessionModeId: string;
+  /** Identifier for the analytics */
+  analyticsId: string;
+  /** Identifier for the algorithm */
+  sessionAlgorithmId: string;
+  /** Array of session vertex IDs */
+  vertexIds: number[];
+  /** Array of session edge IDs */
+  edgeIds: number[];
 };
 export const {
-  useGetSessionTypesQuery,
-  usePostSessionTypesMutation,
-  useGetSessionTypesByIdQuery,
-  usePutSessionTypesByIdMutation,
-  useDeleteSessionTypesByIdMutation,
-  useGetAlgorithmsQuery,
-  usePostAlgorithmsMutation,
-  useGetAlgorithmsByIdQuery,
-  usePutAlgorithmsByIdMutation,
-  useDeleteAlgorithmsByIdMutation,
+  useAppControllerGetHelloQuery,
+  useSessionModeControllerFindSessionModesQuery,
+  useSessionModeControllerCreateSessionModeMutation,
+  useSessionStructureControllerFindSessionStructuresQuery,
+  useSessionStructureControllerCreateSessionStructureMutation,
+  useSessionStructureControllerFindSessionAlgorithmsByStructureIdQuery,
+  useSessionDataStructureControllerFindSessionDataStructuresQuery,
+  useSessionDataStructureControllerCreateSessionDataStructureMutation,
+  useSessionAlgorithmControllerFindSessionAlgorithmsQuery,
+  useSessionAlgorithmControllerCreateSessionAlgorithmMutation,
+  useSessionAlgorithmControllerFindSessionAlgorithmsByStructureIdQuery,
+  useGraphSessionControllerCreateGraphSessionMutation,
 } = injectedRtkApi;

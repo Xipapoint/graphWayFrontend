@@ -1,3 +1,4 @@
+import { routeConstants } from '@/shared/constants/routeConstants';
 import Link from '@/shared/ui/Link/Link';
 import LinkUnderline from '@/shared/ui/LinkUnderline/LinkUnderline';
 import ResponsiveContainer from '@/shared/ui/ResponsiveContainers/ResponsiveContainerGap40';
@@ -30,7 +31,7 @@ const NavBar = () => {
       </ResponsiveContainer>
 
       <div className="flex items-center gap-3 sm:justify-around sm:gap-10 sm:text-lg">
-        <LinkUnderline href={'/session-type'}>Create session</LinkUnderline>
+        <LinkUnderline href={routeConstants.mode}>Create session</LinkUnderline>
         <LinkUnderline href={'/'}>Graphs</LinkUnderline>
         <LinkUnderline href={'/'}>News</LinkUnderline>
         <LinkUnderline href={'/'}>Feedback</LinkUnderline>

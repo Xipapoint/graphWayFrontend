@@ -1,10 +1,12 @@
+'use server';
+
 import Header from '@/widgets/Header/Header';
 import NavBar from '@/widgets/NavBar/NavBar';
-import React, { memo } from 'react';
+import React from 'react';
 
 import styles from './page.module.css';
 
-const Home = () => {
+const Home = async () => {
   return (
     <div className={styles.page}>
       <NavBar />
@@ -12,4 +14,4 @@ const Home = () => {
     </div>
   );
 };
-export default memo(Home);
+export default Home;
